@@ -1,11 +1,14 @@
 {
   "name": "capstone",
   "version": "1.0.0",
-  "description": "Casino games",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Joseph Abate",
-  "license": "ISC"
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.3.0"
+  }
 }
