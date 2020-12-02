@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"cd server && npm start\" \"cd client && npm start",
-    "develop": "concurrently \"cd server && npm develop\" \"cd client && npm start"
+    "test": "concurrently \"cd server && npm develop\" \"cd client && npm start",
+    "start": "concurrently \"cd server && npm start\" \"cd client && npm start"
   },
   "author": "",
   "license": "ISC",
