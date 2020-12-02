@@ -9,33 +9,20 @@ class SignUp extends Component {
     rePassword: "",
   };
 
-  stateSet = (
-    email = this.state.email,
-    username = this.state.username,
-    password = this.state.password,
-    rePassword = this.state.rePassword
-  ) => {
-    this.setState({
-      email: email,
-      username: username,
-      password: password,
-      rePassword: rePassword,
-      errorCode: "",
-    });
-  };
-
   onChangeEmail = (e) => {
-    this.stateSet({ email: e.target.value });
+    this.setState({ email: e.target.value });
   };
 
   onChangeUsername = (e) => {
-    this.stateSet({ email: e.target.value });
-
+    this.setState({ username: e.target.value });
   };
 
   onChangePassword = (e) => {
-    this.stateSet({ email: e.target.value });
+    this.setState({ password: e.target.value });
+  };
 
+  onChangeRePassword = (e) => {
+    this.setState({ rePassword: e.target.value });
   };
 
   onFormSubmit = (e) => {
@@ -90,10 +77,6 @@ class SignUp extends Component {
           <div data-tip="This is the text of the tooltip2">
             <label htmlFor="password">PASSWORD</label>
             <input
-              data-toggle="tooltip"
-              data-placement="top"
-              title="This is the text of the tooltip"
-              value="44"
               type="password"
               name="password"
               required
@@ -108,7 +91,7 @@ class SignUp extends Component {
               name="rePassword"
               required
               value={this.state.rePassword}
-              onChange={this.onChangerePassword}
+              onChange={this.onChangeRePassword}
             />
           </div>
 
