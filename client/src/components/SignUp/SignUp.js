@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class SignUp extends Component {
   render() {
@@ -11,17 +12,19 @@ class SignUp extends Component {
             <input type="email" name="email" required />
           </div>
           <div>
-            <label>USERNAME</label>
-            <input type="text" required />
+            <label htmlFor="username">USERNAME</label>
+            <input type="text" name="username" required />
           </div>
           <div>
-              <label>PASSWORD</label>
-              <input type="password" required />
+              <label htmlFor="password" >PASSWORD</label>
+              <input type="password" name="password" required />
           </div>
           <div>
-              <label>RE-PASSWORD</label>
-              <input type="password" required />
+              <label htmlFor="rePassword">RE-PASSWORD</label>
+              <input type="password" name="rePassword" required />
           </div>
+
+          <button type="submit">SIGN UP NOW</button>
         </form>
       </div>
     );
