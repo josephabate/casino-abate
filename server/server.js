@@ -13,6 +13,11 @@ app.use(cors());
 app.use(express.json());
 
 
+
+app.post('/user', (req,res)=>{
+
+});
+
 function onHttpStart(){
     console.log("Express http server listening on: " + HTTP_PORT);
 }
