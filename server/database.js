@@ -12,9 +12,7 @@ const client = MongoClient(url, {
 });
 let db; //holds database name
 
-//databaseadmin
-//admin123
-
+//added new user to a database
 exports.createUser = function ({ email, username, password, varified }) {
   const newUser = {
     email: email,
@@ -23,17 +21,53 @@ exports.createUser = function ({ email, username, password, varified }) {
     varified: varified,
   };
 
-  return new Promise((resolve, reject)=>{
+  return new Promise((resolve, reject) => {
     const collection = db.collection('users');
     collection.insertOne(newUser, (err, res) => {
-        if (err){
-            reject(err);
-        }
-        console.log("New user added to database");
-        resolve("User Approved!");
+      if (err) {
+        reject(err);
+      }
+      console.log("New user added to database");
+      resolve("User Approved!");
     });
   });
 };
+
+//search for a user
+exports.searchUserByEmail = function (findEmail) {
+  return new Promise((resolve, reject) => {
+    const collection = db.collection('users');
+    collection.find(
+      { 'email': findEmail }
+    ).toArray((err, data) => {
+      assert.strictEqual(err, null);
+      if(data){
+        resolve(data[0]);
+      }else{
+        reject("No Email Found");
+      }
+    });
+  });
+}
+
+//finduser and login
+exports.findUserAndLogin = function (userEmail, userPassword){
+  return new Promise((resolve, reject) => {
+    const collection = db.collection('users');
+    collection.find({
+      "email": userEmail,
+      "password": userPassword
+    })
+    .toArray((err, data) =>{
+      assert.strictEqual(err, null);
+      if(data){
+        resolve (data[0]);
+      }else{
+        reject("No User found!");
+      }
+    });
+  });
+} 
 
 //this starts connection to database
 exports.initialize = function () {
