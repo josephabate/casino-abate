@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 class SignUp extends Component {
   state = {
     email: "",
@@ -42,6 +44,16 @@ class SignUp extends Component {
         errorCode: "",
       });
     }
+
+    //new user object to be passed to back end
+    const newUser ={
+      email: this.state.email,
+      username: this.state.username,
+      password: this.state.password,
+      varified: false
+    };
+
+    axios.post(`${API_URL}/user`, newUser).then(()=>{})
   };
 
   //checks if email is already in use

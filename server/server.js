@@ -3,7 +3,6 @@ const cors = require("cors");
 require('dotenv').config();
 const databaseCalls = require('./database.js');
 
-
 //variables
 const app = express();
 const HTTP_PORT = process.env.PORT || 8080;
@@ -12,10 +11,15 @@ const HTTP_PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
-
-
 app.post('/user', (req,res)=>{
-
+    console.log(req.body);
+    databaseCalls.createUser(req.body)
+    .then((res)=>{
+        console.log(res);
+    })
+    .catch((err)=>{
+        console.log(err);
+    })  
 });
 
 function onHttpStart(){
