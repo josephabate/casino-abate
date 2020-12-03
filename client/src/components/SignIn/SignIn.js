@@ -5,12 +5,12 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 class SignIn extends Component {
     state = {
-        username: "",
+        email: "",
         password: ""
     }
 
-    onChangeUsername = (e) => {
-        this.setState({ username: e.target.value });
+    onChangeEmail = (e) => {
+        this.setState({ email: e.target.value });
     };
 
     onChangePassword = (e) => {
@@ -19,19 +19,34 @@ class SignIn extends Component {
 
     onFormSubmit = (e) =>{
         e.preventDefault();
+
+        const user ={
+            email: this.state.email,
+            password: this.state.password
+        }
+
+        axios.post(`${API_URL}/login`, user).then((data)=>{
+            console.log("LOGIN", data);
+          })
+          .catch((err)=>{
+            this.setState({
+              errorCode: "Not Found"
+            })
+          })
     }
 
 
     render() {
         return (
             <div>
-                <form>
+                <h2>Sign IN</h2>
+                <form onSubmit={this.onFormSubmit}>
                     <div>
-                        <label htmlFor="username">UserName</label>
-                        <input required type="text" name="username" value={this.state.username} onChange={this.onChangeUsername} />
+                        <label htmlFor="email">Email</label>
+                        <input required type="email" name="username" value={this.state.email} onChange={this.onChangeEmail} />
                     </div>
                     <div>
-                        <label htmlFor="password"></label>
+                        <label htmlFor="password">Password</label>
                         <input required type="password" name="password" value={this.state.password} onChange={this.onChangePassword} />
                     </div>
                     <div>

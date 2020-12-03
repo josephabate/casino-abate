@@ -54,12 +54,12 @@ class SignUp extends Component {
       varified: false
     };
 
-    axios.post(`${API_URL}/user`, newUser).then((data)=>{
+    axios.post(`${API_URL}/register`, newUser).then((data)=>{
       console.log("data");
     })
     .catch((err)=>{
       this.setState({
-        errorCode: "BAD"
+        errorCode: "Email Already Taken"
       })
     })
   };

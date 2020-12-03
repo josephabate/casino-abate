@@ -54,6 +54,8 @@ exports.searchUserByEmail = function (findEmail) {
 exports.findUserAndLogin = function (userEmail, userPassword){
   return new Promise((resolve, reject) => {
     const collection = db.collection('users');
+    console.log(userEmail)
+    console.log(userPassword)
     collection.find({
       "email": userEmail,
       "password": userPassword
@@ -61,6 +63,7 @@ exports.findUserAndLogin = function (userEmail, userPassword){
     .toArray((err, data) =>{
       assert.strictEqual(err, null);
       if(data){
+        console.log(data[0]);
         resolve (data[0]);
       }else{
         reject("No User found!");

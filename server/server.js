@@ -11,7 +11,7 @@ const HTTP_PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
-app.post("/user", (req, res) => {
+app.post("/register", (req, res) => {
   //search if user is aleady created with this email
   databaseCalls.searchUserByEmail(req.body.email).then((userData) => {
     if(userData == undefined){
@@ -35,8 +35,15 @@ app.post("/user", (req, res) => {
   });
 });
 
-app.get("/user", (req, res)=>{
-
+app.post("/login", (req, res)=>{
+  console.log(req.body);
+  databaseCalls.findUserAndLogin(req.body.email, req.body.password).then((userData) =>{
+    console.log(userData);
+    res.status(200).send("user logged in");
+  }).catch((err)=>{
+    console.log(err);
+    res.status(500);
+  })
 })
 
 function onHttpStart() {
