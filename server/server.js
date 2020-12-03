@@ -22,21 +22,21 @@ app.post("/user", (req, res) => {
       })
       .catch((err) => {
         console.log(err);
-        res.status(400);
+        res.status(400).send('database error');
       });
 
     }else{
       console.log("Email was taken");
-      res.status(405);
+      res.status(405).send('Email Was Taken');
     }
   }).catch((err)=>{
     console.log(err);
-    res.status(400);
+    res.status(400).send('bad');
   });
 });
 
 app.get("/user", (req, res)=>{
-  
+
 })
 
 function onHttpStart() {

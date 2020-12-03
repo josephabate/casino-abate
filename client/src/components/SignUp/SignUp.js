@@ -9,6 +9,7 @@ class SignUp extends Component {
     username: "",
     password: "",
     rePassword: "",
+    errorCode: ""
   };
 
   onChangeEmail = (e) => {
@@ -53,7 +54,14 @@ class SignUp extends Component {
       varified: false
     };
 
-    axios.post(`${API_URL}/user`, newUser).then(()=>{})
+    axios.post(`${API_URL}/user`, newUser).then((data)=>{
+      console.log("data");
+    })
+    .catch((err)=>{
+      this.setState({
+        errorCode: "BAD"
+      })
+    })
   };
 
   //checks if email is already in use
