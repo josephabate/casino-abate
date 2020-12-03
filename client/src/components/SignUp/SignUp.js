@@ -27,7 +27,6 @@ class SignUp extends Component {
 
   onFormSubmit = (e) => {
     e.preventDefault();
-    console.log("HERE");
     if (!this.checkEmail(this.state.email)) {
       this.setState({
         errorCode: "EMAIL ALREADY IN USE",
@@ -38,8 +37,10 @@ class SignUp extends Component {
         errorCode: "PASSWORDS DO NOT MATCH",
       });
       return false;
-    } else if (false) {
-    } else {
+    }  else {
+      this.setState({
+        errorCode: "",
+      });
     }
   };
 
@@ -103,3 +104,51 @@ class SignUp extends Component {
 }
 
 export default SignUp;
+
+/**
+ * 
+ * 
+ * 
+ * while(true){
+  let dealer = 0;
+  let you = 0;
+  let notOver = true;
+  let random;
+
+  let x = "hit";
+  do{
+    x = prompt("hit or stay?")
+    if(x.toLowerCase().includes("h")){
+      random = Math.floor(Math.random() * 10) + 1;
+      you += random;
+      console.log("you are at > ", you)
+      if(you > 21){
+        console.log("YOU LOSE LOSER");
+        notOver=false;
+        break;
+      }
+    } 
+  }while(x.toLowerCase().includes("h"));
+  
+  if(notOver){
+    do{
+    if(dealer < 16){
+      dealer += Math.floor(Math.random() * 10) + 1;
+    }
+    if(dealer > 21){
+      console.log("DEALER BUST WITH > ", dealer)
+      notOver = false;
+    }}while();
+  }
+
+  if(notOver){
+    console.log("DEALER > "+ dealer +" YOU >"+ you);
+    if(dealer > you){
+      console.log("YOU LOSE LOSER")
+    }else{
+      console.log("YOU WIN BUT UR STILL A LOSER, LSOER")
+    }
+    
+  }
+}
+ */
