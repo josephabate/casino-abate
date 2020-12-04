@@ -12,6 +12,7 @@ require("dotenv").config();
 
 //files
 const databaseCalls = require("./database.js");
+const User = require('./user');
 
 //variables
 const app = express();
@@ -36,6 +37,27 @@ mongoose.connect("mongodb+srv://databaseadmin:admin123@casino.jytkg.mongodb.net/
   console.log("Mongoose is connected!");
 })
 
+//Routes 
+app.post("/register", (req, res) => {
+  User.findOne({email: req.body.email}, async (err, doc) => {
+    if(err) throw err
+    else if(doc) res.status(405).send("Email is taken!")
+    else {
+      const newUser = new User({
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password,
+        verified: false
+      });
+      await newUser.save();
+      res.status(202).send("Account created");
+    }
+  })
+});
+
+
+
+//Helpers 
 function onHttpStart() {
   console.log("Express http server listening on: " + HTTP_PORT);
 }

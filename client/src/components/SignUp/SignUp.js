@@ -55,8 +55,14 @@ class SignUp extends Component {
     };
 
     axios.post(`${API_URL}/register`, newUser)
-      .then((data) => {
-        console.log(data);
+      .then((resp) => {
+        this.setState({
+          email: "",
+          username: "",
+          password: "",
+          rePassword: "",
+          errorCode: resp.data
+        })
       })
       .catch((err) => {
         this.setState({
