@@ -39,14 +39,17 @@ mongoose.connect("mongodb+srv://databaseadmin:admin123@casino.jytkg.mongodb.net/
 
 //Routes 
 app.post("/register", (req, res) => {
-  User.findOne({email: req.body.email}, async (err, doc) => {
-    if(err) throw err
-    else if(doc) res.status(405).send("Email is taken!")
+  User.findOne({ email: req.body.email }, async (err, doc) => {
+    if (err) throw err
+    else if (doc) res.status(405).send("Email is taken!")
     else {
+      //encryped password fopr secuirty reasons 
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
       const newUser = new User({
-        email: req.body.email, 
+        email: req.body.email,
         username: req.body.username,
-        password: req.body.password,
+        password: hashedPassword,
         verified: false
       });
       await newUser.save();
@@ -54,6 +57,10 @@ app.post("/register", (req, res) => {
     }
   })
 });
+
+app.post("login", (req, res) => {
+  
+})
 
 
 
