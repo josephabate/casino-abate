@@ -5,7 +5,7 @@ const passport = require('passport');
 const passportlocal = require('passport-local').Strategy; 
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
-const expressSession = require('express-session');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 require("dotenv").config();
 
@@ -20,6 +20,13 @@ const HTTP_PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({
+  secret: "secretcode",
+  resave: true,
+  saveUninitialized: true //could turn this back to false for login when someoen leaves the site
+}));
+app.use(cookieParser("secretcode"));
+
 
 app.post("/register", (req, res) => {
   //search if user is aleady created with this email
@@ -54,6 +61,10 @@ app.post("/login", (req, res)=>{
     console.log(err);
     res.status(500);
   })
+})
+
+app.get("/user", (req,res)=>{
+  
 })
 
 function onHttpStart() {
