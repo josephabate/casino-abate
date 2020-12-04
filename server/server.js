@@ -10,13 +10,24 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require("dotenv").config();
 
+
 //files
 const databaseCalls = require("./database.js");
 const User = require('./user');
+const { initialize } = require("passport");
 
 //variables
 const app = express();
 const HTTP_PORT = process.env.PORT || 8080;
+
+//database connection
+mongoose.connect("mongodb+srv://databaseadmin:admin123@casino.jytkg.mongodb.net/Casino?retryWrites=true&w=majority", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}, () => {
+  console.log("Mongoose is connected!");
+})
+
 
 //Middleware
 app.use(cors());
@@ -28,14 +39,10 @@ app.use(session({
   saveUninitialized: true //could turn this back to false for login when someoen leaves the site
 }));
 app.use(cookieParser("secretcode"));
+app.use(passport.initialize());
+app.use(passport.session());
+require('./passportConfig')(passport);
 
-//database connection
-mongoose.connect("mongodb+srv://databaseadmin:admin123@casino.jytkg.mongodb.net/Casino?retryWrites=true&w=majority", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}, () => {
-  console.log("Mongoose is connected!");
-})
 
 //Routes 
 app.post("/register", (req, res) => {
@@ -59,7 +66,16 @@ app.post("/register", (req, res) => {
 });
 
 app.post("login", (req, res) => {
-  
+  passport.authenticate("local", (err, user, info) =>{
+    if(err) throw err;
+    else if(!user) res.status(404).send("User not found");
+    else{
+      req.logIn((user, err)=>{
+        if(err) throw err;
+        res.status(200).send("User logged in");
+      })
+    }
+  })
 })
 
 

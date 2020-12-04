@@ -1,6 +1,5 @@
-const User = require('./User');
-const bcrypt = require('./bcruptjs');
-const { response } = require('express');
+const User = require('./user');
+const bcrypt = require('bcryptjs');
 const localStrategy = require('passport-local').Strategy;
 
 
