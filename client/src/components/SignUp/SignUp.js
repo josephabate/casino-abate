@@ -40,28 +40,29 @@ class SignUp extends Component {
         errorCode: "PASSWORDS DO NOT MATCH",
       });
       return false;
-    }  else {
+    } else {
       this.setState({
         errorCode: "",
       });
     }
 
     //new user object to be passed to back end
-    const newUser ={
+    const newUser = {
       email: this.state.email,
       username: this.state.username,
       password: this.state.password,
       varified: false
     };
 
-    axios.post(`${API_URL}/register`, newUser).then((data)=>{
-      console.log("data");
-    })
-    .catch((err)=>{
-      this.setState({
-        errorCode: "Email Already Taken"
+    axios.post(`${API_URL}/register`, newUser)
+      .then((data) => {
+        console.log(data);
       })
-    })
+      .catch((err) => {
+        this.setState({
+          errorCode: "Email Already Taken"
+        })
+      });
   };
 
   //checks if email is already in use
@@ -126,9 +127,9 @@ class SignUp extends Component {
 export default SignUp;
 
 /**
- * 
- * 
- * 
+ *
+ *
+ *
  * while(true){
   let dealer = 0;
   let you = 0;
@@ -147,9 +148,9 @@ export default SignUp;
         notOver=false;
         break;
       }
-    } 
+    }
   }while(x.toLowerCase().includes("h"));
-  
+
   if(notOver){
     do{
     if(dealer < 16){
@@ -168,7 +169,7 @@ export default SignUp;
     }else{
       console.log("YOU WIN BUT UR STILL A LOSER, LSOER")
     }
-    
+
   }
 }
  */
