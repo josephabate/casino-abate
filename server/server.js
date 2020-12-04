@@ -2,19 +2,14 @@
 const express = require("express");
 const cors = require("cors");
 const passport = require('passport');
-const passportlocal = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require("dotenv").config();
-
-
-//files
-const databaseCalls = require("./database.js");
+//Files
 const User = require('./user');
-const { initialize } = require("passport");
 
 //variables
 const app = express();
@@ -65,7 +60,7 @@ app.post("/register", (req, res) => {
   })
 });
 
-app.post("login", (req, res) => {
+app.post("login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) =>{
     if(err) throw err;
     else if(!user) res.status(404).send("User not found");
@@ -75,7 +70,11 @@ app.post("login", (req, res) => {
         res.status(200).send("User logged in");
       })
     }
-  })
+  })(req,res,next);
+})
+
+app.get("/user", (req, res)=>{
+  res.status(200).send(req.user); //authentication is stored here
 })
 
 
