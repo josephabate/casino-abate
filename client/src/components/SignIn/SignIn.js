@@ -17,15 +17,30 @@ class SignIn extends Component {
         this.setState({ password: e.target.value });
     };
 
-    onFormSubmit = (e) =>{
+    onFormSubmit = (e) => {
         e.preventDefault();
 
-        const user ={
+        const user = {
             email: this.state.email,
             password: this.state.password
         }
- 
+
+        /*
         axios.post(`${API_URL}/login`, user).then((data)=>{
+            console.log("LOGIN", data);
+          })
+          .catch((err)=>{
+            this.setState({
+              errorCode: "Not Found"
+            })
+          })*/
+
+        axios({ 
+            method: "POST",
+            withCredentials: true,
+            url: `${API_URL}/login`,
+            data: user
+         }).then((data)=>{
             console.log("LOGIN", data);
           })
           .catch((err)=>{

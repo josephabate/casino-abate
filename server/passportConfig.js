@@ -5,11 +5,13 @@ const localStrategy = require('passport-local').Strategy;
 
 module.exports = (passport) => {
     passport.use(
-        new localStrategy((email, password, done) => {
+        //NEED <usernameField & paswordField> or else you will have "[0] { message: 'Missing credentials' }"
+        new localStrategy({usernameField: 'email', passwordField: 'password'}, (email, password, done) => {
             User.findOne({ email: email }, (err, user) => {
                 if (err) throw err;
                 else if (!user) return done(null, false);
                 else {
+                    console.log(user);
                     bcrypt.compare(password, user.password, (err, result) => {
                         if (err) throw err;
                         else if (result) {
@@ -24,6 +26,7 @@ module.exports = (passport) => {
     )
 
     passport.serializeUser((user,cb)=>{
+        console.log("OBER HERE")
         cb(null, user.id);
     })
     passport.deserializeUser((id,cb) =>{

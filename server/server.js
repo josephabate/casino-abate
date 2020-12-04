@@ -25,7 +25,10 @@ mongoose.connect("mongodb+srv://databaseadmin:admin123@casino.jytkg.mongodb.net/
 
 
 //Middleware
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
@@ -60,12 +63,14 @@ app.post("/register", (req, res) => {
   })
 });
 
-app.post("login", (req, res, next) => {
+app.post("/login", (req, res, next) => {
+  console.log(req.body);
   passport.authenticate("local", (err, user, info) =>{
+    console.log(info)
     if(err) throw err;
     else if(!user) res.status(404).send("User not found");
     else{
-      req.logIn((user, err)=>{
+      req.logIn(user, err=>{
         if(err) throw err;
         res.status(200).send("User logged in");
       })
