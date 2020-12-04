@@ -24,7 +24,7 @@ class SignIn extends Component {
             email: this.state.email,
             password: this.state.password
         }
-
+ 
         axios.post(`${API_URL}/login`, user).then((data)=>{
             console.log("LOGIN", data);
           })

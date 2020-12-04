@@ -1,15 +1,25 @@
+//modules
 const express = require("express");
 const cors = require("cors");
+const passport = require('passport');
+const passportlocal = require('passport-local').Strategy; 
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcryptjs');
+const expressSession = require('express-session');
+const bodyParser = require('body-parser');
 require("dotenv").config();
+
+//files
 const databaseCalls = require("./database.js");
 
 //variables
 const app = express();
 const HTTP_PORT = process.env.PORT || 8080;
 
-//USE
+//MIddleware
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.post("/register", (req, res) => {
   //search if user is aleady created with this email
