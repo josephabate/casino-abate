@@ -44,7 +44,7 @@ app.post("/register", (req, res) => {
     else if(doc) res.status(405).send("Email is taken!")
     else {
       const newUser = new User({
-        email: req.body.email,
+        email: req.body.email, 
         username: req.body.username,
         password: req.body.password,
         verified: false
