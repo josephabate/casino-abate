@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 class SignIn extends Component {
+    constructor(props) {
+        super(props)
+    }
+
     state = {
         email: "",
         password: ""
@@ -26,21 +31,20 @@ class SignIn extends Component {
         }
 
         //log in route
-        axios({ 
+        axios({
             method: "POST",
             withCredentials: true,
             url: `${API_URL}/login`,
             data: user
-         }).then((data)=>{
-            console.log(data);
-          })
-          .catch((err)=>{
-            this.setState({
-              errorCode: "Not Found"
+        }).then((res) => {
+            sessionStorage.setItem("user", JSON.stringify(res.data))
+            this.props.history.push(`/`);
+        })
+            .catch((err) => {
+                this.setState({
+                    errorCode: "Not Found"
+                })
             })
-          })
-
-         
     }
 
 
@@ -66,4 +70,4 @@ class SignIn extends Component {
     }
 }
 
-export default SignIn;
+export default withRouter(SignIn);

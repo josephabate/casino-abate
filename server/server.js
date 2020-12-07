@@ -44,7 +44,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./passportConfig')(passport);
 
-/* --- Routes --- */ 
+/* --- Routes --- */
 app.post("/register", (req, res) => {
   User.findOne({ email: req.body.email }, async (err, doc) => {
     if (err) throw err
@@ -67,23 +67,33 @@ app.post("/register", (req, res) => {
 
 app.post("/login", (req, res, next) => {
   console.log(req.body);
-  passport.authenticate("local", (err, user, info) =>{
-    if(err) throw err;
-    if(!user) res.status(404).send("User not found");
-    else{
-      req.logIn(user, err=>{
-        if(err) throw err;
-        res.status(200).send("User logged in");
-        console.log("user logged in " + req.user.email);
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err;
+    if (!user) res.status(404).send("User not found");
+    else {
+      req.logIn(user, err => {
+        if (err) throw err;
+        //only send back this user data
+        const userObj = {
+          username: req.user.username,
+          verified: req.user.verified,
+          money: req.user.money
+        }
+        res.status(200).json(userObj);
       })
     }
-  })(req,res,next);
-  
+  })(req, res, next);
+
 })
 
 //sends user to application
-app.get("/user", (req, res)=>{
-  res.send(req.user); //authentication is stored here
+app.get("/user", (req, res) => {
+  const userObj = {
+    username: req.user.username,
+    verified: req.user.verified,
+    money: req.user.money
+  }
+  res.send(userObj); //authentication is stored here
 })
 
 //Helpers 
