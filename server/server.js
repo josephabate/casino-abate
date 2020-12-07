@@ -36,7 +36,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false, //could turn this back to false for login when someoen leaves the site
 }));
-app.use(cookieParser("secretcode"));
+//app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
 require('./passportConfig')(passport);
@@ -74,8 +74,15 @@ app.post("/login", (req, res, next) => {
         res.status(200).send("User logged in");
         console.log("user logged in " + req.user.email + " " + req.user.id);
       })
+
+      console.log("second time user logged in " + req.user.email + " " + req.user.id);
     }
   })(req,res,next);
+
+  setTimeout(() => {
+    console.log("third user logged in " + req.user.email + " " + req.user.id);
+  }, 1000);
+  
 })
 
 app.get("/user", (req, res)=>{

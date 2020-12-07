@@ -42,9 +42,9 @@ class SignIn extends Component {
             data: user
          }).then((data)=>{
             console.log(data);
-            axios.get(`${API_URL}/user`)
+            axios.get(`${API_URL}/user`, {withCredentials: true})
             .then((res)=>{
-                console.log("user afetr psot > " + res.data);
+                console.log("works ere " +  res.data.password);
             })
           })
           .catch((err)=>{

@@ -79,7 +79,7 @@ class SignUp extends Component {
   render() {
     return (
       <div>
-        <h2>CREATEACCOUNT</h2>
+        <h2>CREATE ACCOUNT</h2>
         <form onSubmit={this.onFormSubmit}>
           <p>{this.state.errorCode}</p>
           <div>
