@@ -32,12 +32,4 @@ module.exports = (passport) => {
             done(err, user);
         });
       });
-      /*
-    passport.deserializeUser((id,cb) =>{
-        User.findOne({_id: id}, (err,user)=>{
-            console.log(">>>" + user);
-            cb(err, user);
-        })
-    })
-    */
 };

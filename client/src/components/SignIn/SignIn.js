@@ -25,16 +25,7 @@ class SignIn extends Component {
             password: this.state.password
         }
 
-        /*
-        axios.post(`${API_URL}/login`, user).then((data)=>{
-            console.log("LOGIN", data);
-          })
-          .catch((err)=>{
-            this.setState({
-              errorCode: "Not Found"
-            })
-          })*/
-
+        //log in route
         axios({ 
             method: "POST",
             withCredentials: true,
@@ -42,10 +33,6 @@ class SignIn extends Component {
             data: user
          }).then((data)=>{
             console.log(data);
-            axios.get(`${API_URL}/user`, {withCredentials: true})
-            .then((res)=>{
-                console.log("works ere " +  res.data.password);
-            })
           })
           .catch((err)=>{
             this.setState({
