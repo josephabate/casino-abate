@@ -11,7 +11,6 @@ module.exports = (passport) => {
                 if (err) throw err;
                 else if (!user) return done(null, false);
                 else {
-                    console.log(user);
                     bcrypt.compare(password, user.password, (err, result) => {
                         if (err) throw err;
                         else if (result) {
@@ -26,12 +25,19 @@ module.exports = (passport) => {
     )
 
     passport.serializeUser((user,cb)=>{
-        console.log("OBER HERE")
         cb(null, user.id);
     })
+    passport.deserializeUser(function (id, done) {
+        User.findById(id, function (err, user) {
+            done(err, user);
+        });
+      });
+      /*
     passport.deserializeUser((id,cb) =>{
         User.findOne({_id: id}, (err,user)=>{
-            cd(err, user);
+            console.log(">>>" + user);
+            cb(err, user);
         })
     })
+    */
 };

@@ -41,13 +41,19 @@ class SignIn extends Component {
             url: `${API_URL}/login`,
             data: user
          }).then((data)=>{
-            console.log("LOGIN", data);
+            console.log(data);
+            axios.get(`${API_URL}/user`)
+            .then((res)=>{
+                console.log("user afetr psot > " + res.data);
+            })
           })
           .catch((err)=>{
             this.setState({
               errorCode: "Not Found"
             })
           })
+
+         
     }
 
 

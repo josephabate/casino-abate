@@ -33,8 +33,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   secret: "secretcode",
-  resave: true,
-  saveUninitialized: true //could turn this back to false for login when someoen leaves the site
+  resave: false,
+  saveUninitialized: false, //could turn this back to false for login when someoen leaves the site
 }));
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
@@ -66,20 +66,21 @@ app.post("/register", (req, res) => {
 app.post("/login", (req, res, next) => {
   console.log(req.body);
   passport.authenticate("local", (err, user, info) =>{
-    console.log(info)
     if(err) throw err;
-    else if(!user) res.status(404).send("User not found");
+    if(!user) res.status(404).send("User not found");
     else{
       req.logIn(user, err=>{
         if(err) throw err;
         res.status(200).send("User logged in");
+        console.log("user logged in " + req.user.email + " " + req.user.id);
       })
     }
   })(req,res,next);
 })
 
 app.get("/user", (req, res)=>{
-  res.status(200).send(req.user); //authentication is stored here
+  console.log(req.user)
+  res.send(req.user); //authentication is stored here
 })
 
 
