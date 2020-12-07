@@ -8,16 +8,18 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 class App extends Component {
 
+    ifAuth(Component){
+      return !!sessionStorage.getItem("user") ? <Component/> : <Registration/>
+    }
+
   render() {
-    let isAuth = !!sessionStorage.getItem("user");
     return (
       <div className="App">
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />
-            <PrivateRoute path="/registration" component={Registration} isAuth={!isAuth} redirectTo="/home"/>
-              
-            <PrivateRoute path="/war" component={War} isAuth={isAuth} redirectTo="/registration" />
+            <Route exact path="/registration" component={Registration} />
+            <Route exact path="/war" component={War} />
           </Switch>
         </BrowserRouter>
       </div>
@@ -26,3 +28,9 @@ class App extends Component {
 }
 
 export default App;
+
+/**
+ *             <PrivateRoute path="/registration" component={Registration} redirectTo="/"/>
+              
+            <PrivateRoute path="/war" component={War} redirectTo="/registration" />
+ */

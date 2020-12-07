@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 class War extends Component {
+
+    constructor(props) {
+        super(props);
+        console.log("HGERE")
+        if (!!!sessionStorage.getItem("user")) {
+            this.props.history.push('/registration');
+        }
+    }
+
     render() {
         return (
             <div>
@@ -8,6 +17,7 @@ class War extends Component {
             </div>
         );
     }
+
 }
 
 export default withRouter(War);
