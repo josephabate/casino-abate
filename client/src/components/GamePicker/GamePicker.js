@@ -8,7 +8,7 @@ const GamePicker = (props) => {
     }
 
     return (
-        <div>
+        <div className="gamePicker">
            <h2>{props.game}</h2> 
            <button onClick={onPlay}>PLAY NOW</button>
         </div>

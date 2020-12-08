@@ -1,0 +1,15 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+
+.home{
+    background-color: $tableColor;
+    color: white;
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gameWrapper{
+    display: flex;
+}
