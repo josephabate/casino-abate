@@ -13,7 +13,7 @@ class War extends Component {
     render() {
         return (
             <div>
-                <h1>LOGGED IN AND WAR PAGE</h1>
+                <h1>WAR</h1>
             </div>
         );
     }
