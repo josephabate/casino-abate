@@ -8,3 +8,10 @@
         @content;
     }
 }
+
+@mixin rouletteTableTabs{
+    background-color: $tableColor;
+    border: none;
+    color: white;
+    font-size: 2rem;
+}

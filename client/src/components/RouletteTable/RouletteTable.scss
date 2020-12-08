@@ -1,4 +1,5 @@
 @import '../../partials/variables';
+@import '../../partials/mixins';
 
 .table{
     padding: 2rem;
@@ -7,10 +8,8 @@
         width: 75px;
         height: 75px;
         font-weight: 600;
-        font-size: 2rem;
-        color: white;
-        border: none;
-        border-radius: 34px;
+        border-radius: 34px; 
+        @include rouletteTableTabs;
             &--red{
                 background-color: red;
             }
@@ -24,9 +23,31 @@
                 margin: .5rem;
             }
     }
+    &__twoToOne{
+        @include rouletteTableTabs;
+        font-size: 1.2rem;
+        transform: rotate(270deg);
+    }
+    &__twelveMultiples{
+        @include rouletteTableTabs;
+    }
+    &__bottomBets{
+        @include rouletteTableTabs;
+        width: 100%;
+        &--red{
+            background-color: red;
+        }
+        &--black{
+            background-color: black;
+        }
+    }
+    &__empty{
+        border: none;
+    }
 }
 
 td {
     border: 2px solid white;
     margin: 4rem;
+    color: white;
   }

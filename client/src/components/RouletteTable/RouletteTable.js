@@ -7,19 +7,19 @@ const RouletteTable = () => {
             <tbody>
                 <tr>
                     <td rowSpan="3"><button className="table__number table__number--zero">0</button></td>
-                    <td button className="table__number--wrapper"><button className="table__number table__number--black">3</button></td>
-                    <td button className="table__number--wrapper"><button className="table__number table__number--red">6</button></td>
-                    <td button className="table__number--wrapper"><button className="table__number table__number--black">9</button></td>
-                    <td button className="table__number--wrapper"><button className="table__number table__number--red">12</button></td>
-                    <td button className="table__number--wrapper"><button className="table__number table__number--black">15</button></td>
-                    <td button className="table__number--wrapper"><button className="table__number table__number--red">18</button></td>
-                    <td button className="table__number--wrapper"><button className="table__number table__number--black">21</button></td>
-                    <td button className="table__number--wrapper"><button className="table__number table__number--red">24</button></td>
-                    <td button className="table__number--wrapper"><button className="table__number table__number--black">27</button></td>
-                    <td button className="table__number--wrapper"><button className="table__number table__number--red">30</button></td>
-                    <td button className="table__number--wrapper"><button className="table__number table__number--black">33</button></td>
-                    <td button className="table__number--wrapper"><button className="table__number table__number--red">36</button></td>
-                    <td>2 to 1</td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">3</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">6</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">9</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">12</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">15</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">18</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">21</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">24</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">27</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">30</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">33</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">36</button></td>
+                    <td> <button className="table__twoToOne">2 TO 1</button></td>
                 </tr>
                 <tr>
                     <td className="table__number--wrapper"><button className="table__number table__number--red">2</button></td>
@@ -34,7 +34,7 @@ const RouletteTable = () => {
                     <td className="table__number--wrapper"><button className="table__number table__number--black">29</button></td>
                     <td className="table__number--wrapper"><button className="table__number table__number--red">32</button></td>
                     <td className="table__number--wrapper"><button className="table__number table__number--black">35</button></td>
-                    <td>2 to 1</td>
+                    <td> <button className="table__twoToOne">2 TO 1</button></td>
                 </tr>
                 <tr>
                     <td className="table__number--wrapper"><button className="table__number table__number--black">1</button></td>
@@ -49,24 +49,24 @@ const RouletteTable = () => {
                     <td className="table__number--wrapper"><button className="table__number table__number--red">28</button></td>
                     <td className="table__number--wrapper"><button className="table__number table__number--black">31</button></td>
                     <td className="table__number--wrapper"><button className="table__number table__number--red">34</button></td>
-                    <td>2 to 1</td>
+                    <td> <button className="table__twoToOne">2 TO 1</button></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td colSpan="4">1ST12</td>
-                    <td colSpan="4">2ND12</td>
-                    <td colSpan="4">3RD12</td>
-                    <td></td>
+                    <td className="table__empty"></td>
+                    <td colSpan="4"><button class="table__twelveMultiples">1ST12</button></td>
+                    <td colSpan="4"><button class="table__twelveMultiples">2ND12</button></td>
+                    <td colSpan="4"><button class="table__twelveMultiples">3RD12</button></td>
+                    <td className="table__empty"></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td colSpan="2">1TO18</td>
-                    <td colSpan="2">EVEN</td>
-                    <td colSpan="2">RED</td>
-                    <td colSpan="2">BLACK</td>
-                    <td colSpan="2">ODD</td>
-                    <td colSpan="2">19TO36</td>
-                    <td></td>
+                    <td className="table__empty"></td>
+                    <td colSpan="2"><button className="table__bottomBets">1TO18</button></td>
+                    <td colSpan="2"><button className="table__bottomBets">EVEN</button></td>
+                    <td colSpan="2"><button className="table__bottomBets table__bottomBets--red">RED</button></td>
+                    <td colSpan="2"><button className="table__bottomBets table__bottomBets--black">BLACK</button></td>
+                    <td colSpan="2"><button className="table__bottomBets">ODD</button></td>
+                    <td colSpan="2"><button className="table__bottomBets">19TO36</button></td>
+                    <td className="table__empty"></td>
                 </tr>
             </tbody>
         </table>
