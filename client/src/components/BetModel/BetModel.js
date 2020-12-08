@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './BetModel.scss';
 
 class BetModel extends Component {
 
@@ -41,7 +42,9 @@ class BetModel extends Component {
                 className="BetModel"
                 style={{ display: this.state.display ? "block" : "none" }}
             >
-                The Bet Screen {this.props.betNumber}
+                <h1>PLACE YOUR BET ON</h1>
+                <h2>{this.props.betNumber}</h2>
+
             </div>
         );
     }
