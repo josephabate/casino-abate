@@ -5,10 +5,6 @@ import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
 
 class SignIn extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     state = {
         email: "",
         password: ""
