@@ -64,7 +64,7 @@ class Roulette extends Component {
     render() {
         return (
             <div className="Roulette">
-                <BetModel resetBet={this.resetBetNumber} betNumber={this.state.currentBetNumber}/>
+                <BetModel resetBet={this.resetBetNumber} betNumber={this.state.currentBetNumber} playerMoney={this.state.user.money}/>
                 <h1 className="Roulette__title">Roulette</h1>
                 <div className="Roulette__gameScreen">
                     <div>
