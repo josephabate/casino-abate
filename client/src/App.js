@@ -5,6 +5,9 @@ import Home from "./pages/Home/Home";
 import Registration from "./pages/Registration/Registration";
 import War from './pages/War/War';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Roulette from './pages/Roulette/Roulette';
+import BlackJack from './pages/BlackJack/BlackJack';
+import Slots from './pages/Slots/Slots';
 
 class App extends Component {
 
@@ -20,6 +23,9 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/registration" component={Registration} />
             <Route exact path="/war" component={War} />
+            <Route exact path="/roulette" component={Roulette} />
+            <Route exact path="/blackjack" component={BlackJack} />
+            <Route exact path="/Slots" component={Slots} />
           </Switch>
         </BrowserRouter>
       </div>

@@ -4,9 +4,7 @@ import { withRouter } from "react-router-dom";
 
 const GamePicker = (props) => {
     function onPlay(){
-        console.log(`/${props.game.toLowerCase()}`)
-        console.log("play game");
-        props.history.push(`/war`);
+        props.history.push(`/${props.game.toLowerCase()}`);
     }
 
     return (

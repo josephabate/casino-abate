@@ -4,7 +4,6 @@ class War extends Component {
 
     constructor(props) {
         super(props);
-        console.log("HGERE")
         if (!!!sessionStorage.getItem("user")) {
             this.props.history.push('/registration');
         }

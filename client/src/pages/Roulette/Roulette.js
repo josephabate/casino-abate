@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 
 class Roulette extends Component {
+    constructor(props) {
+        super(props);
+        if (!!!sessionStorage.getItem("user")) {
+            this.props.history.push('/registration');
+        }
+    }
     render() {
         return (
             <div>

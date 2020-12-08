@@ -37,8 +37,9 @@ class SignIn extends Component {
             url: `${API_URL}/login`,
             data: user
         }).then((res) => {
+            console.log(res.data);
             sessionStorage.setItem("user", JSON.stringify(res.data))
-            this.props.history.push(`/`);
+           this.props.history.push(`/`);
         })
             .catch((err) => {
                 this.setState({
