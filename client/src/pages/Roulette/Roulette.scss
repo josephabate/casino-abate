@@ -2,5 +2,14 @@
 @import '../../partials/mixins';
 
 .Roulette{
+    padding: 1rem;
     background-color: $tableColor;
+    &__title{
+        font-size: 3rem;
+        margin-top: 0;
+    }
+    &__gameScreen{
+        display: flex;
+        justify-content: space-evenly;
+    }
 }

@@ -83,12 +83,11 @@ app.post("/login", (req, res, next) => {
       })
     }
   })(req, res, next);
-
 })
 
 //sends user to application
 app.get("/user", (req, res) => {
-  console.log(userObj);
+  console.log(req.user);
   const userObj = {
     username: req.user.username,
     verified: req.user.verified,

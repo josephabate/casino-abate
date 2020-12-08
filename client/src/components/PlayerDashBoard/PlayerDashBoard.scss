@@ -1,0 +1,12 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+
+.playerDashBoard{
+    @include basicShape;
+    padding: 1rem;
+    margin: 3rem;
+
+    &__title{
+        margin: 0;
+    }
+}

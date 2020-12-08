@@ -1,0 +1,11 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+
+.BetScreen{
+    width: 300px;
+    height: 400px;
+    @include basicShape;
+    &__title{
+        margin: 0;
+    }
+}
