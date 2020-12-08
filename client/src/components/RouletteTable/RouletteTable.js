@@ -6,49 +6,49 @@ const RouletteTable = () => {
         <table className="table">
             <tbody>
                 <tr>
-                    <td rowSpan="3">0</td>
-                    <td>3</td>
-                    <td>6</td>
-                    <td>9</td>
-                    <td>12</td>
-                    <td>15</td>
-                    <td>18</td>
-                    <td>21</td>
-                    <td>24</td>
-                    <td>27</td>
-                    <td>30</td>
-                    <td>33</td>
-                    <td>36</td>
+                    <td rowSpan="3"><button className="table__number table__number--zero">0</button></td>
+                    <td button className="table__number--wrapper"><button className="table__number table__number--black">3</button></td>
+                    <td button className="table__number--wrapper"><button className="table__number table__number--red">6</button></td>
+                    <td button className="table__number--wrapper"><button className="table__number table__number--black">9</button></td>
+                    <td button className="table__number--wrapper"><button className="table__number table__number--red">12</button></td>
+                    <td button className="table__number--wrapper"><button className="table__number table__number--black">15</button></td>
+                    <td button className="table__number--wrapper"><button className="table__number table__number--red">18</button></td>
+                    <td button className="table__number--wrapper"><button className="table__number table__number--black">21</button></td>
+                    <td button className="table__number--wrapper"><button className="table__number table__number--red">24</button></td>
+                    <td button className="table__number--wrapper"><button className="table__number table__number--black">27</button></td>
+                    <td button className="table__number--wrapper"><button className="table__number table__number--red">30</button></td>
+                    <td button className="table__number--wrapper"><button className="table__number table__number--black">33</button></td>
+                    <td button className="table__number--wrapper"><button className="table__number table__number--red">36</button></td>
                     <td>2 to 1</td>
                 </tr>
                 <tr>
-                    <td>2</td>
-                    <td>5</td>
-                    <td>8</td>
-                    <td>11</td>
-                    <td>14</td>
-                    <td>17</td>
-                    <td>20</td>
-                    <td>23</td>
-                    <td>26</td>
-                    <td>29</td>
-                    <td>32</td>
-                    <td>35</td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">2</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">5</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">8</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">11</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">14</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">17</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">20</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">23</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">26</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">29</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">32</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">35</button></td>
                     <td>2 to 1</td>
                 </tr>
                 <tr>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>7</td>
-                    <td>10</td>
-                    <td>13</td>
-                    <td>16</td>
-                    <td>19</td>
-                    <td>22</td>
-                    <td>25</td>
-                    <td>28</td>
-                    <td>31</td>
-                    <td>34</td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">1</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">4</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">7</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">10</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">13</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">16</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">19</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">22</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">25</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">28</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--black">31</button></td>
+                    <td className="table__number--wrapper"><button className="table__number table__number--red">34</button></td>
                     <td>2 to 1</td>
                 </tr>
                 <tr>

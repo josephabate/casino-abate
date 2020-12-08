@@ -4,7 +4,6 @@ import './App.css';
 import Home from "./pages/Home/Home";
 import Registration from "./pages/Registration/Registration";
 import War from './pages/War/War';
-import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Roulette from './pages/Roulette/Roulette';
 import BlackJack from './pages/BlackJack/BlackJack';
 import Slots from './pages/Slots/Slots';

@@ -1,5 +1,29 @@
+@import '../../partials/variables';
+
 .table{
     padding: 2rem;
+
+    &__number{
+        width: 75px;
+        height: 75px;
+        font-weight: 600;
+        font-size: 2rem;
+        color: white;
+        border: none;
+        border-radius: 34px;
+            &--red{
+                background-color: red;
+            }
+            &--black{
+                background-color: black;
+            }
+            &--zero{
+                background-color: $tableColor;
+                border: 2px solid white;
+                border-radius: 50px;
+                margin: .5rem;
+            }
+    }
 }
 
 td {
