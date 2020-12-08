@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import BetScreen from '../../components/BetScreen/BetScreen';
 import PlayerDashBoard from '../../components/PlayerDashBoard/PlayerDashBoard';
 import RouletteTable from '../../components/RouletteTable/RouletteTable';
+import RouletteWheel from '../../components/RouletteWheel/RouletteWheel';
 import './Roulette.scss';
 
 class Roulette extends Component {
 
     state = {
         user: { username: "", money: 0 },
-        bets: []
+        bets: [],
+        number: "10"
     }
 
 
@@ -50,12 +52,16 @@ class Roulette extends Component {
             <div className="Roulette">
                 <h1 className="Roulette__title">Roulette</h1>
                 <div className="Roulette__gameScreen">
-                    <BetScreen />
+                    <div>
+                        <RouletteWheel number={this.state.number} />
+                        <BetScreen />
+                    </div>
                     <div>
                         <RouletteTable />
+                        <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
                     </div>
                 </div>
-                <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
+
             </div>
         );
     }
