@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import RouletteTable from '../../components/RouletteTable/RouletteTable';
 
 class Roulette extends Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class Roulette extends Component {
         return (
             <div>
                 <h1>Roulette</h1>
+                <RouletteTable />
             </div>
         );
     }

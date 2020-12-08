@@ -28,10 +28,10 @@ class Home extends Component {
                 <div>
                     <div className="gameWrapper">
                         <GamePicker game="WAR" />
-                        <GamePicker game="ROULETTE" />
+                        <GamePicker game="BLACKJACK" />
                     </div>
                     <div className="gameWrapper">
-                        <GamePicker game="BLACKJACK" />
+                        <GamePicker game="ROULETTE" />
                         <GamePicker game="SLOTS" />
                     </div>
                 </div>
