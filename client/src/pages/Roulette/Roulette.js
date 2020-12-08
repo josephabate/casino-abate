@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import BetModel from '../../components/BetModel/BetModel';
 import BetScreen from '../../components/BetScreen/BetScreen';
 import PlayerDashBoard from '../../components/PlayerDashBoard/PlayerDashBoard';
 import RouletteTable from '../../components/RouletteTable/RouletteTable';
@@ -10,7 +11,8 @@ class Roulette extends Component {
     state = {
         user: { username: "", money: 0 },
         bets: [],
-        number: "10"
+        number: "",
+        currentBetNumber: ""
     }
 
 
@@ -47,9 +49,22 @@ class Roulette extends Component {
         })
     }
 
+    resetBetNumber = () => {
+        this.setState({
+            currentBetNumber: ""
+        });
+    }
+
+    setBetNumber = (num) => {
+        this.setState({
+            currentBetNumber: num
+        })
+    }
+
     render() {
         return (
             <div className="Roulette">
+                <BetModel resetBet={this.resetBetNumber} betNumber={this.state.currentBetNumber}/>
                 <h1 className="Roulette__title">Roulette</h1>
                 <div className="Roulette__gameScreen">
                     <div>
@@ -57,7 +72,7 @@ class Roulette extends Component {
                         <BetScreen />
                     </div>
                     <div>
-                        <RouletteTable />
+                        <RouletteTable onSetBetNumber={this.setBetNumber}/>
                         <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
                     </div>
                 </div>
