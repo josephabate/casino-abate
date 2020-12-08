@@ -26,6 +26,17 @@ class BetModel extends Component {
 
     //place the bet
     onSetBet = () => {
+        //ratio name money
+        let ratio = 0;
+        if (this.props.betNumber) {
+            ratio = 35;
+        }else if(this.props.betNumber.includes("2 TO 1") || this.props.betNumber.includes("12")){
+            ratio = 2;
+        }else{
+            ratio = 1;
+        }
+
+        this.props.onPlaceBet(ratio, this.props.betNumber, this.state.bet);
         this.onCloseBetModel();
     }
 
@@ -66,7 +77,9 @@ class BetModel extends Component {
                 style={{ display: this.state.display ? "flex" : "none" }}
             >
                 <h1 className="BetModel__title">PLACE YOUR BET ON</h1>
-                <h2 className="BetModel__betNumber">{this.props.betNumber}</h2>
+                <div className="BetModel__numWrapper">
+                    <h2 className="BetModel__betNumber">{this.props.betNumber}</h2>
+                </div>
                 <div className="BetModel__betNError">
                     <span>{this.state.error}</span>
                     <div className="BetModel__betBox">
