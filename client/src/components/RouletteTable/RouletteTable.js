@@ -53,9 +53,9 @@ const RouletteTable = () => {
                 </tr>
                 <tr>
                     <td className="table__empty"></td>
-                    <td colSpan="4"><button class="table__twelveMultiples">1ST12</button></td>
-                    <td colSpan="4"><button class="table__twelveMultiples">2ND12</button></td>
-                    <td colSpan="4"><button class="table__twelveMultiples">3RD12</button></td>
+                    <td colSpan="4"><button className="table__twelveMultiples">1ST12</button></td>
+                    <td colSpan="4"><button className="table__twelveMultiples">2ND12</button></td>
+                    <td colSpan="4"><button className="table__twelveMultiples">3RD12</button></td>
                     <td className="table__empty"></td>
                 </tr>
                 <tr>
