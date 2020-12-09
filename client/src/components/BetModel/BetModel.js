@@ -30,11 +30,11 @@ class BetModel extends Component {
             //ratio name money
             let ratio = 0;
             if (!isNaN(this.props.betNumber)) {
-                ratio = 35;
+                ratio = 36;
             } else if (this.props.betNumber.includes("2 TO 1") || this.props.betNumber.includes("12")) {
-                ratio = 2;
+                ratio = 3;
             } else {
-                ratio = 1;
+                ratio = 2;
             }
 
             this.props.onPlaceBet(ratio, this.props.betNumber, this.state.bet);

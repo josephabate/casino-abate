@@ -4,6 +4,7 @@ import BetScreen from '../../components/BetScreen/BetScreen';
 import PlayerDashBoard from '../../components/PlayerDashBoard/PlayerDashBoard';
 import RouletteTable from '../../components/RouletteTable/RouletteTable';
 import RouletteWheel from '../../components/RouletteWheel/RouletteWheel';
+import { v4 as uuidv4 } from 'uuid';
 import './Roulette.scss';
 
 class Roulette extends Component {
@@ -33,10 +34,28 @@ class Roulette extends Component {
         }
     }
 
+    addWinnings = (money, id) => {
+        //change bet collected state to true so you can only collect once
+        let bets = this.state.bets;
+
+        bets.forEach((el) =>{
+            if(el.id === id){
+                el.collected = true;
+            }
+        })
+
+        let userData = this.state.user;
+        userData.money += money;
+        this.setState({
+            user: { username: this.state.user.username, money: userData.money },
+            bets: bets
+        })
+    }
+
     addBets = (ratio, name, money) => {
         //add new bet to list
         const newBets = this.state.bets;
-        const bet = { ratio: ratio, name: name, money: money }
+        const bet = { id: uuidv4(), ratio: ratio, name: name, money: money, collected: false }
         newBets.push(bet);
 
         //subtract the players money
@@ -90,7 +109,7 @@ class Roulette extends Component {
                     <div className="Roulette__leftCol">
                         {this.state.number?<button onClick={this.resetNumber}>reset</button>:<button onClick={this.getNumber}>GET NUMBER</button> }
                         <RouletteWheel number={this.state.number} />
-                        <BetScreen allBets={this.state.bets} wheelNumber={this.state.number}/>
+                        <BetScreen addWinnings={this.addWinnings} allBets={this.state.bets} wheelNumber={this.state.number}/>
                     </div>
                     <div>
                         <RouletteTable onSetBetNumber={this.setBetNumber} />
