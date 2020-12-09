@@ -64,6 +64,19 @@ class Roulette extends Component {
         })
     }
 
+    resetNumber = () => {
+        this.setState({
+            number: ""
+        })
+    }
+
+    getNumber = () => {
+        const wheelNumber = Math.floor(Math.random() * 37); 
+        this.setState({
+            number: wheelNumber
+        })
+    }
+
     render() {
         return (
             <div className="Roulette">
@@ -71,7 +84,7 @@ class Roulette extends Component {
                 <h1 className="Roulette__title">Roulette</h1>
                 <div className="Roulette__gameScreen">
                     <div className="Roulette__leftCol">
-                        <button>GET NUMBER</button>
+                        {this.state.number?<button onClick={this.resetNumber}>reset</button>:<button onClick={this.getNumber}>GET NUMBER</button> }
                         <RouletteWheel number={this.state.number} />
                         <BetScreen allBets={this.state.bets}/>
                     </div>
