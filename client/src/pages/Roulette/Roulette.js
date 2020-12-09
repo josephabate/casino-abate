@@ -12,9 +12,9 @@ class Roulette extends Component {
         user: { username: "", money: 0 },
         bets: [],
         number: "",
-        currentBetNumber: ""
+        currentBetNumber: "",
+        canBet: true
     }
-
 
     constructor(props) {
         super(props);
@@ -66,27 +66,31 @@ class Roulette extends Component {
 
     resetNumber = () => {
         this.setState({
-            number: ""
+            number: "",
+            bets: [],
+            currentBetNumber: "",
+            canBet: true
         })
     }
 
     getNumber = () => {
         const wheelNumber = Math.floor(Math.random() * 37); 
         this.setState({
-            number: wheelNumber
+            number: wheelNumber,
+            canBet: false
         })
     }
 
     render() {
         return (
             <div className="Roulette">
-                <BetModel resetBet={this.resetBetNumber} betNumber={this.state.currentBetNumber} playerMoney={this.state.user.money} onPlaceBet={this.addBets} />
+                <BetModel canBet={this.state.canBet} resetBet={this.resetBetNumber} betNumber={this.state.currentBetNumber} playerMoney={this.state.user.money} onPlaceBet={this.addBets} />
                 <h1 className="Roulette__title">Roulette</h1>
                 <div className="Roulette__gameScreen">
                     <div className="Roulette__leftCol">
                         {this.state.number?<button onClick={this.resetNumber}>reset</button>:<button onClick={this.getNumber}>GET NUMBER</button> }
                         <RouletteWheel number={this.state.number} />
-                        <BetScreen allBets={this.state.bets}/>
+                        <BetScreen allBets={this.state.bets} wheelNumber={this.state.number}/>
                     </div>
                     <div>
                         <RouletteTable onSetBetNumber={this.setBetNumber} />

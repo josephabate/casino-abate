@@ -26,22 +26,24 @@ class BetModel extends Component {
 
     //place the bet
     onSetBet = () => {
-        //ratio name money
-        let ratio = 0;
-        if (this.props.betNumber) {
-            ratio = 35;
-        }else if(this.props.betNumber.includes("2 TO 1") || this.props.betNumber.includes("12")){
-            ratio = 2;
-        }else{
-            ratio = 1;
-        }
+        if (this.state.bet != 0) {
+            //ratio name money
+            let ratio = 0;
+            if (!isNaN(this.props.betNumber)) {
+                ratio = 35;
+            } else if (this.props.betNumber.includes("2 TO 1") || this.props.betNumber.includes("12")) {
+                ratio = 2;
+            } else {
+                ratio = 1;
+            }
 
-        this.props.onPlaceBet(ratio, this.props.betNumber, this.state.bet);
-        this.onCloseBetModel();
+            this.props.onPlaceBet(ratio, this.props.betNumber, this.state.bet);
+            this.onCloseBetModel();
+        }
     }
 
     componentDidMount() {
-        if (this.props.betNumber) {
+        if (this.props.betNumber && this.props.canBet) {
             this.setState({
                 display: true
             });
@@ -49,19 +51,22 @@ class BetModel extends Component {
     }
 
     componentDidUpdate(prevP, prevS) {
-        if (prevS.display === this.state.display && this.props.betNumber && this.state.bet === 0) {
+        if (prevS.display === this.state.display && this.props.betNumber && this.state.bet === 0 && this.props.canBet) {
             this.setState({
                 display: true,
             });
         }
     }
 
+
     onBetMoney = (betAmount) => {
+
         const newAmount = betAmount + this.state.bet;
         if (newAmount > this.props.playerMoney) {
-            this.setState({
+            //fix this later. when your bet is at $0 and you try to bet more than you have, it causes a crash
+            /*this.setState({
                 error: "You do not have enought money for this bet"
-            })
+            })*/
         } else {
             this.setState({
                 bet: newAmount,
