@@ -4,10 +4,14 @@ import PlayDeck from '../../components/PlayDeck/PlayDeck';
 import PlayerDashBoard from '../../components/PlayerDashBoard/PlayerDashBoard';
 import './War.scss';
 
+import ribin1 from '../../assets/images/game-elements/suitRibin1.png';
+import WarBet from '../../components/WarBet/WarBet';
+
 class War extends Component {
 
     state = {
-        user: {}
+        user: {},
+        currentBet: 0
     }
 
     constructor(props) {
@@ -30,18 +34,17 @@ class War extends Component {
     render() {
         return (
             <section className="War">
-                <PlayDeck />
+                <PlayDeck player="DEALER" />
                 <div className="War__title-wrapper">
-                    <h1 className="War__title">CASINO WAR</h1>
-                    <h3 className="War__desc">PAYOUT 1 TO 1</h3>
+                    <img className="War__ribin" src={ribin1} alt="ribin" />
+                    <h2 className="War__title">CASINO WAR</h2>
+                    <h4 className="War__rule">$5 min</h4>
+                    <h2 className="War__desc">PAYOUT 1 TO 1</h2>
+                    <img className="War__ribin" src={ribin1} alt="ribin" />
                 </div>
-                <PlayDeck />
-                <h1>BET</h1>
-                <button>REPEAT BET</button>
-                <div>
-                    <button>CLEAR</button>
-                    <button>LEAVE TABLE</button>
-                </div>
+                <PlayDeck player="YOU"/>
+                <WarBet currentBet={this.state.currentBet}/>
+
                 <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
             </section>
         );
