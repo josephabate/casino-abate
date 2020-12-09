@@ -65,7 +65,7 @@ class BetModel extends Component {
         if (newAmount > this.props.playerMoney) {
             //fix this later. when your bet is at $0 and you try to bet more than you have, it causes a crash
             /*this.setState({
-                error: "You do not have enought money for this bet"
+                error: "You do not have enought money for this bet"                         //REFACTOR see if its worth your time to fix this...not really needed
             })*/
         } else {
             this.setState({

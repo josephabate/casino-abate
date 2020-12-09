@@ -64,7 +64,7 @@ const BetScreen = ({ allBets, wheelNumber, addWinnings }) => {
                                     addWinnings(winnings, data.id);
                                 }
                                 //render the winning lines
-                                return (
+                                return (                                                //REFACTOR all this into a new component
                                     //if you win turn green else red
                                     <div key={data.id} style={{ color: "green" }}>
                                         <h4>${data.money} on {data.name}</h4>
