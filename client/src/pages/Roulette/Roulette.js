@@ -27,7 +27,6 @@ class Roulette extends Component {
     componentDidMount() {
         if (!!sessionStorage.getItem("user")) {
             const userData = JSON.parse(sessionStorage.getItem("user"))
-            console.log(userData);
             this.setState({
                 user: { username: userData.username, money: userData.money }
             })
