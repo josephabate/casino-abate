@@ -70,9 +70,10 @@ class Roulette extends Component {
                 <BetModel resetBet={this.resetBetNumber} betNumber={this.state.currentBetNumber} playerMoney={this.state.user.money} onPlaceBet={this.addBets} />
                 <h1 className="Roulette__title">Roulette</h1>
                 <div className="Roulette__gameScreen">
-                    <div>
+                    <div className="Roulette__leftCol">
+                        <button>GET NUMBER</button>
                         <RouletteWheel number={this.state.number} />
-                        <BetScreen />
+                        <BetScreen allBets={this.state.bets}/>
                     </div>
                     <div>
                         <RouletteTable onSetBetNumber={this.setBetNumber} />

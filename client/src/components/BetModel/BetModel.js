@@ -59,7 +59,9 @@ class BetModel extends Component {
     onBetMoney = (betAmount) => {
         const newAmount = betAmount + this.state.bet;
         if (newAmount > this.props.playerMoney) {
-            
+            this.setState({
+                error: "You do not have enought money for this bet"
+            })
         } else {
             this.setState({
                 bet: newAmount,

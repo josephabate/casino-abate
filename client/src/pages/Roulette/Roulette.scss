@@ -1,6 +1,8 @@
 @import '../../partials/variables';
 @import '../../partials/mixins';
 
+
+
 .Roulette{
     padding: 1rem;
     background-color: $tableColor;
@@ -11,5 +13,9 @@
     &__gameScreen{
         display: flex;
         justify-content: space-evenly;
+    }
+    &__leftCol{
+        display: flex;
+        flex-direction: column;
     }
 }
