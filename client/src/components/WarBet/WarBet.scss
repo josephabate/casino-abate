@@ -17,6 +17,24 @@
         flex-direction: column;
         align-items: center;
     }
+    &__bet-wrapper{
+        display: flex;
+        align-items: center;
+        &-buttons{
+            display: flex;
+        align-items: center;
+        }
+    }
+    &__button{
+        padding: 1rem 2rem;
+        margin-left: 1rem;
+        background-color: wheat;
+        border: 0.5rem solid black;
+        border-radius: 30px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
 }
 
 img{

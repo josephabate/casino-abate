@@ -9,40 +9,38 @@ import chip100 from '../../assets/images/game-elements/chip100.png';
 
 class WarBet extends Component {
 
-    bonBetMoney(money) {
-
-    }
-
     render() {
         return (
             <div className="war-bet">
 
                 <div>
                     <img onClick={() => {
-                        this.onBetMoney(5)
+                        this.props.onBetMoney(5)
                     }} src={chip5} alt="$5 bet" />
                     <img onClick={() => {
-                        this.onBetMoney(10)
+                        this.props.onBetMoney(10)
                     }} src={chip10} alt="$10 bet" />
                     <img onClick={() => {
-                        this.onBetMoney(25)
+                        this.props.onBetMoney(25)
                     }} src={chip25} alt="$25 bet" />
                     <img onClick={() => {
-                        this.onBetMoney(50)
+                        this.props.onBetMoney(50)
                     }} src={chip50} alt="$50 bet" />
                     <img onClick={() => {
-                        this.onBetMoney(100)
+                        this.props.onBetMoney(100)
                     }} src={chip100} alt="$100 bet" />
                 </div>
-                <div className="war-bet__total-bet">
-                    <h3>
-                        ${this.props.currentBet}
-                    </h3>
-                </div>
-                <div>
-                    <button>BET</button>
-                    <div>
-                        <button>CLEAR</button>
+                <div className="war-bet__bet-wrapper">
+                    <div className="war-bet__total-bet">
+                        <h3>
+                            ${this.props.currentBet}
+                        </h3>
+                    </div>
+                    <div className="war-bet__bet-wrapper-buttons">
+                        <button className="war-bet__button">PLAY</button>
+                        <div>
+                            <button className="war-bet__button" onClick={this.props.clearBets}>CLEAR</button>
+                        </div>
                     </div>
                 </div>
 

@@ -30,6 +30,33 @@ class War extends Component {
         }
     }
 
+    onBetMoney = (betAmount) => {
+        let bet = this.state.currentBet;
+        let newUser = this.state.user;
+
+        //take money from user for bets
+        if (betAmount <= newUser.money) {
+            newUser.money -= betAmount;
+            bet += betAmount;
+
+            this.setState({
+                user: newUser,
+                currentBet: bet
+            });
+        }
+    }
+
+    onClearBets = () => {
+        //give user money back
+        let newUser = this.state.user;
+        newUser.money += this.state.currentBet;
+
+        this.setState({
+            user: newUser,
+            currentBet: 0
+        });
+    }
+
 
     render() {
         return (
@@ -42,8 +69,8 @@ class War extends Component {
                     <h2 className="War__desc">PAYOUT 1 TO 1</h2>
                     <img className="War__ribin" src={ribin1} alt="ribin" />
                 </div>
-                <PlayDeck player="YOU"/>
-                <WarBet currentBet={this.state.currentBet}/>
+                <PlayDeck player="YOU" />
+                <WarBet currentBet={this.state.currentBet} onBetMoney={this.onBetMoney} clearBets={this.onClearBets} />
 
                 <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
             </section>
