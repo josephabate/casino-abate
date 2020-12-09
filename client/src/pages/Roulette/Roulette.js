@@ -24,11 +24,13 @@ class Roulette extends Component {
     }
 
     componentDidMount() {
-        const userData = JSON.parse(sessionStorage.getItem("user"))
-        console.log(userData);
-        this.setState({
-            user: { username: userData.username, money: userData.money }
-        })
+        if (!!sessionStorage.getItem("user")) {
+            const userData = JSON.parse(sessionStorage.getItem("user"))
+            console.log(userData);
+            this.setState({
+                user: { username: userData.username, money: userData.money }
+            })
+        }
     }
 
     addBets = (ratio, name, money) => {
@@ -39,13 +41,14 @@ class Roulette extends Component {
 
         //subtract the players money
         let userData = this.state.user;
-        userData.money = - money;
+        userData.money -= money;
 
         sessionStorage.setItem("user", JSON.stringify(userData));
 
         this.setState({
             bets: newBets,
-            user: { username: this.state.user.username, money: userData.money }
+            user: { username: this.state.user.username, money: userData.money },
+            currentBetNumber: ""
         })
     }
 
@@ -64,7 +67,7 @@ class Roulette extends Component {
     render() {
         return (
             <div className="Roulette">
-                <BetModel resetBet={this.resetBetNumber} betNumber={this.state.currentBetNumber} playerMoney={this.state.user.money} onPlaceBet={this.addBets}/>
+                <BetModel resetBet={this.resetBetNumber} betNumber={this.state.currentBetNumber} playerMoney={this.state.user.money} onPlaceBet={this.addBets} />
                 <h1 className="Roulette__title">Roulette</h1>
                 <div className="Roulette__gameScreen">
                     <div>
@@ -72,11 +75,10 @@ class Roulette extends Component {
                         <BetScreen />
                     </div>
                     <div>
-                        <RouletteTable onSetBetNumber={this.setBetNumber}/>
+                        <RouletteTable onSetBetNumber={this.setBetNumber} />
                         <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
                     </div>
                 </div>
-
             </div>
         );
     }

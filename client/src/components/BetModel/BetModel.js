@@ -59,9 +59,7 @@ class BetModel extends Component {
     onBetMoney = (betAmount) => {
         const newAmount = betAmount + this.state.bet;
         if (newAmount > this.props.playerMoney) {
-            this.setState({
-                error: "You do not have enought money for this bet"
-            })
+            
         } else {
             this.setState({
                 bet: newAmount,
@@ -107,7 +105,7 @@ class BetModel extends Component {
                     }} src={chip100} alt="$100 bet" />
                 </div>
                 <div>
-                    <button className="BetModel__button">PLACE BET</button>
+                    <button className="BetModel__button" onClick={this.onSetBet}>PLACE BET</button>
                     <button className="BetModel__button" onClick={this.onCloseBetModel}>CLEAR</button>
                 </div>
             </div>
