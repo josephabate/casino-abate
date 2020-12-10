@@ -16,11 +16,11 @@ class BlackJack extends Component {
         currentBet: 0,
         dealer: {
             power: null,
-            img: null
+            img: []
         },
         player: {
             power: null,
-            img: null
+            img: []
         },
         playing: false
     }
@@ -69,6 +69,28 @@ class BlackJack extends Component {
         });
     }
 
+    //Game Methods
+    onPlayBlackJack = () => {
+        /**
+         *  if (this.state.currentBet === 0) {
+            return;
+        }
+         */
+        this.setState({
+            playing: true
+        })
+
+    }
+
+    onStay = () => {
+        this.setState({
+            playing: false
+        })
+    }
+
+    onHit = () => {
+        
+    }
 
 
     render() {
