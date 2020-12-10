@@ -3,9 +3,6 @@ import { withRouter } from "react-router-dom";
 import PlayDeck from '../../components/PlayDeck/PlayDeck';
 import PlayerDashBoard from '../../components/PlayerDashBoard/PlayerDashBoard';
 import './War.scss';
-
-import deck from '../../components/GlobalHelpers/CardImages';
-
 import ribin1 from '../../assets/images/game-elements/suitRibin1.png';
 import WarBet from '../../components/WarBet/WarBet';
 
@@ -13,7 +10,15 @@ class War extends Component {
 
     state = {
         user: {},
-        currentBet: 0
+        currentBet: 0,
+        dealer: {
+            power: null,
+            img: null
+        },
+        player: {
+            power: null,
+            img: null
+        }
     }
 
     constructor(props) {
@@ -46,6 +51,8 @@ class War extends Component {
                 currentBet: bet
             });
         }
+
+        
     }
 
     onClearBets = () => {
@@ -59,20 +66,77 @@ class War extends Component {
         });
     }
 
+    onPlayWar = () => {
+        if(this.state.currentBet === 0){
+            return;
+        }
+        let newUser = this.state.user;
+        let betAmount = this.state.currentBet;
+
+        //get card number from 1-52
+        const playerPowerNumberRaw = Math.floor((Math.random() * 52) + 1);
+        const dealerPowerNumberRaw = Math.floor((Math.random() * 52) + 1);
+
+        //convert 52 to the right card and power
+        const playerCard = playerPowerNumberRaw - 1;
+        let playerPower = playerPowerNumberRaw % 13;
+        if(playerPower === 0){
+            playerPower = 13;//reset King power
+        }else if(playerPower === 1){
+            playerPower = 14;//reset Ace power
+        }
+
+        const dealerCard = dealerPowerNumberRaw - 1;
+        let dealerPower = dealerPowerNumberRaw % 13;
+        if(dealerPower === 0){
+            dealerPower = 13;//reset King power
+        }else if(dealerPower === 1){
+            dealerPower = 14;//reset Ace power
+        }
+
+        if(playerPower > dealerPower){
+            betAmount *= 2;
+        }else if(playerPower === dealerPower){
+        }else{
+            betAmount = 0;
+        }
+
+        newUser.money += betAmount;
+
+        this.setState({
+            user: newUser,
+            currentBet: 0,
+            dealer: {
+                power: dealerPower,
+                img: dealerCard
+            },
+            player: {
+                power: playerPower,
+                img: playerCard
+            }
+        });
+
+        sessionStorage.setItem("user", JSON.stringify(newUser));
+    }
 
     render() {
         return (
             <section className="War">
-                <PlayDeck player="DEALER" />
+
                 <div className="War__title-wrapper">
-                    <img className="War__ribin" src={ribin1} alt="ribin" />
                     <h2 className="War__title">CASINO WAR</h2>
                     <h4 className="War__rule">$5 min</h4>
                     <h2 className="War__desc">PAYOUT 1 TO 1</h2>
+
                     <img className="War__ribin" src={ribin1} alt="ribin" />
                 </div>
-                <PlayDeck player="YOU" />
-                <WarBet currentBet={this.state.currentBet} onBetMoney={this.onBetMoney} clearBets={this.onClearBets} />
+                <div className="War__game">
+                    <PlayDeck player="YOU" image={this.state.player.img} />
+                    <PlayDeck player="DEALER" image={this.state.dealer.img} />
+                </div>
+
+                <img className="War__ribin" src={ribin1} alt="ribin" />
+                <WarBet currentBet={this.state.currentBet} onBetMoney={this.onBetMoney} clearBets={this.onClearBets} playGame={this.onPlayWar}/>
 
                 <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
             </section>

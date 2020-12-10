@@ -6,7 +6,6 @@ import chip25 from '../../assets/images/game-elements/chip25.png';
 import chip50 from '../../assets/images/game-elements/chip50.png';
 import chip100 from '../../assets/images/game-elements/chip100.png';
 
-
 class WarBet extends Component {
 
     render() {
@@ -37,7 +36,7 @@ class WarBet extends Component {
                         </h3>
                     </div>
                     <div className="war-bet__bet-wrapper-buttons">
-                        <button className="war-bet__button">PLAY</button>
+                        <button className="war-bet__button" onClick={this.props.playGame}>PLAY</button>
                         <div>
                             <button className="war-bet__button" onClick={this.props.clearBets}>CLEAR</button>
                         </div>

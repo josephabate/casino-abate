@@ -8,7 +8,7 @@
     width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     overflow-y: scroll;
     &__title{
@@ -28,5 +28,10 @@
 
     &__rule{
         margin: 0;
+    }
+    &__game{
+        display: flex;
+        justify-content: space-evenly;
+        width: 500px
     }
 }

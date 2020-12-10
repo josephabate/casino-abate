@@ -1,11 +1,14 @@
 @import '../../partials/mixins';
 .PlayDeck{
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 160px;
     border: 1px solid gold;
     border-radius: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 1rem;
+    &__card{
+        margin: 0;
+    }
 }

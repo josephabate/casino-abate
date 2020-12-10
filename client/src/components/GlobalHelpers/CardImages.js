@@ -25,7 +25,7 @@ import card24 from '../../assets/images/cards/deck-of-cards-24.png'
 import card25 from '../../assets/images/cards/deck-of-cards-25.png'
 import card26 from '../../assets/images/cards/deck-of-cards-26.png'
 import card27 from '../../assets/images/cards/deck-of-cards-27.png'
-import card28 from '../../assets/images/cards/deck-of-cards-28.png'
+import card28 from '../../assets/images/cards/deck-of-cards-27.png'
 import card29 from '../../assets/images/cards/deck-of-cards-29.png'
 import card30 from '../../assets/images/cards/deck-of-cards-30.png'
 import card31 from '../../assets/images/cards/deck-of-cards-31.png'
@@ -51,7 +51,7 @@ import card50 from '../../assets/images/cards/deck-of-cards-50.png'
 import card51 from '../../assets/images/cards/deck-of-cards-51.png'
 import card52 from '../../assets/images/cards/deck-of-cards-52.png'
 
-export {
+export default [
     card1,
     card2,
     card3,
@@ -104,4 +104,4 @@ export {
     card50,
     card51,
     card52
-};
+];
