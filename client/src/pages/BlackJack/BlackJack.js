@@ -6,9 +6,6 @@ import BlackJackGameControls from '../../components/BlackJackGameControls/BlackJ
 import './BlackJack.scss';
 import ribin1 from '../../assets/images/game-elements/suitRibin1.png';
 import { updateBalanceToSession } from '../../components/GlobalHelpers/AccountMoneyHandler';
-import { useHistory } from 'react-router';
-
-
 
 class BlackJack extends Component {
 
