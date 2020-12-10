@@ -35,7 +35,7 @@ class SignIn extends Component {
         }).then((res) => {
             console.log(res.data);
             sessionStorage.setItem("user", JSON.stringify(res.data))
-           this.props.history.push(`/`);
+            this.props.history.push(`/`);
         })
             .catch((err) => {
                 this.setState({

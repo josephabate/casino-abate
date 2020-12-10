@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const ObjectId = require('mongodb').ObjectID;
 const mongoose = require('mongoose');
 require("dotenv").config();
 
@@ -97,8 +98,18 @@ app.get("/user", (req, res) => {
   res.send(userObj); //authentication is stored here
 })
 
-app.put("/user/money", ()=>{
-  User.updateOne({})
+app.put("/user/money", (req, res) => {
+  const findId = req.body.id;
+  const newMoney = req.body.money;
+  User.updateOne({ '_id': findId },
+    { money: newMoney }, function (err, docs) {
+      if (err) {
+        res.status(406).send(docs)
+      }
+      else {
+        res.status(200).send(docs)
+      }
+    });
 })
 
 //Helpers 
