@@ -53,9 +53,7 @@ const BetScreen = ({ allBets, wheelNumber, addWinnings }) => {
             <div className="BetScreen__listWrapper">
                 {
                     allBets.map((data) => {
-                        console.log(data);
                         if (wheelNumber) {
-                            console.log("has nuM")
                             //addWinnings for add funds
                             if (checkForWinner(data.name, wheelNumber)) {
                                 //add winnigns to players account
