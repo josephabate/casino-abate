@@ -26,7 +26,7 @@ class BetModel extends Component {
 
     //place the bet
     onSetBet = () => {
-        if (this.state.bet != 0) {
+        if (this.state.bet !== 0) {
             //ratio name money
             let ratio = 0;
             if (!isNaN(this.props.betNumber)) {
