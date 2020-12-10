@@ -69,7 +69,6 @@ class BlackJack extends Component {
                 <img className="black-jack__ribin" src={ribin1} alt="ribin" />
                 <div className="black-jack__bet-wrapper">
                     <BlackJackBet currentBet={this.state.currentBet} onBetMoney={this.onBetMoney} />
-                    <
                 </div>
                 <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
             </div>
