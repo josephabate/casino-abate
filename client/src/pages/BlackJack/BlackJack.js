@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PlayerDashBoard from '../../components/PlayerDashBoard/PlayerDashBoard';
+import BlackJackBet from '../../components/BlackJackBet/BlackJackBet';
+import BlackJackGameControls from '../../components/BlackJackGameControls/BlackJackGameControls';
+
 import './BlackJack.scss';
 import ribin1 from '../../assets/images/game-elements/suitRibin1.png';
-import WarBet from '../../components/WarBet/WarBet';
 import { updateBalanceToSession } from '../../components/GlobalHelpers/AccountMoneyHandler';
-import BlackJackBet from '../../components/BlackJackBet/BlackJackBet';
+
 
 
 class BlackJack extends Component {
@@ -69,6 +71,7 @@ class BlackJack extends Component {
                 <img className="black-jack__ribin" src={ribin1} alt="ribin" />
                 <div className="black-jack__bet-wrapper">
                     <BlackJackBet currentBet={this.state.currentBet} onBetMoney={this.onBetMoney} />
+                    <BlackJackGameControls />
                 </div>
                 <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
             </div>
