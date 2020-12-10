@@ -11,7 +11,7 @@ const BlackJackCardDisplay = (props) => {
             </div>
             <div>
                 {props.cards.map((card)=>{
-                    return <img key={uuidv4} src={deck[parseInt(card.cardImg)]} alt="card" className="blackJackCardDisplay__card" />
+                    return <img key={uuidv4()} src={deck[parseInt(card.cardImg)]} alt="card" className="blackJackCardDisplay__card" />
                 })}
             </div>
         </div>

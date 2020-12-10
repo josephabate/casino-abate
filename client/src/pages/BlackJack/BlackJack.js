@@ -61,13 +61,15 @@ class BlackJack extends Component {
 
     onClearBets = () => {
         //give user money back
-        let newUser = this.state.user;
-        newUser.money += this.state.currentBet;
+        if (!this.state.playing) {
+            let newUser = this.state.user;
+            newUser.money += this.state.currentBet;
 
-        this.setState({
-            user: newUser,
-            currentBet: 0
-        });
+            this.setState({
+                user: newUser,
+                currentBet: 0
+            });
+        }
     }
 
     newCard = (num) => {
@@ -103,6 +105,10 @@ class BlackJack extends Component {
             playing: true
         })
 */
+//if a game is already in sesson dont start a new one
+if(this.state.playing){
+    return;
+}
         //setting up player card
         const card1 = this.newCard(Math.floor((Math.random() * 52) + 1));
         const card2 = this.newCard(Math.floor((Math.random() * 52) + 1));
@@ -134,6 +140,7 @@ class BlackJack extends Component {
 
     dealerPlay = () => {
         if (this.state.dealer.power >= 16) {
+            this.whoWins();
             return;
         }
 
@@ -147,7 +154,7 @@ class BlackJack extends Component {
 
         //check if over 21 and have an ace
         if (dealerBust) {
-            dealerCards.cards.forEach((card) => {
+            dealerCards.forEach((card) => {
                 if (card.isAce && card.cardPower === 11) {
                     card.cardPower = 1;
                     dealerPower -= 10;
@@ -161,39 +168,39 @@ class BlackJack extends Component {
         const dealer = {
             power: dealerPower,
             cards: dealerCards,
-            bust: false
+            bust: dealerBust
         }
 
         this.setState({
             dealer: dealer
-        }, ()=>{
+        }, () => {
             this.dealerPlay()
         });
     }
 
     onStay = () => {
-        this.setState({
-            playing: false
-        })
-        this.dealerPlay();
-
-        this.whoWins();
-
+        if (this.state.playing) {
+            this.setState({
+                playing: false
+            })
+            this.dealerPlay();
+        }
     }
 
     whoWins = () => {
         if (this.state.player.bust) {
-            console.log("YOU LOSE YOU BUST")
+            console.log("YOU LOSE YOU BUST");
         } else if (this.state.dealer.bust) {
-            console.log("YOU WIN DEALER BUST")
+            console.log("YOU WIN DEALER BUST");
         } else if (this.state.player.power > this.state.dealer.power) {
+            console.log(this.state.player.power + " " + this.state.dealer.power)
             console.log("YOU WIN");
         }
         else if (this.state.player.power === this.state.dealer.power) {
-            console.log("TIE YOU LOSE STILL")
+            console.log("TIE YOU LOSE STILL");
         }
         else {
-            console.log("TIE YOU LOSE STILL")
+            console.log("TIE YOU LOSE STILL");
         }
     }
 
@@ -221,7 +228,12 @@ class BlackJack extends Component {
             this.setState({
                 player: newPlayer
             })
-            console.log(newPlayer.power)
+            if (newPlayer.bust) {
+                this.setState({
+                    playing: false
+                })
+                this.whoWins();
+            }
         }
     }
 
@@ -243,7 +255,7 @@ class BlackJack extends Component {
                 <img className="black-jack__ribin" src={ribin1} alt="ribin" />
                 <div className="black-jack__bet-wrapper">
                     <BlackJackBet currentBet={this.state.currentBet} onBetMoney={this.onBetMoney} />
-                    <BlackJackGameControls onClearBets={this.onClearBets} onPlayGame={this.onPlayBlackJack} onHit={this.onHit} onStay={this.onStay}/>
+                    <BlackJackGameControls onClearBets={this.onClearBets} onPlayGame={this.onPlayBlackJack} onHit={this.onHit} onStay={this.onStay} />
                 </div>
                 <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
             </div>
