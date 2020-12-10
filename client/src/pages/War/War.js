@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import PlayDeck from '../../components/PlayDeck/PlayDeck';
 import PlayerDashBoard from '../../components/PlayerDashBoard/PlayerDashBoard';
+
 import './War.scss';
 import ribin1 from '../../assets/images/game-elements/suitRibin1.png';
 import WarBet from '../../components/WarBet/WarBet';
@@ -53,8 +54,6 @@ class War extends Component {
                 currentBet: bet
             });
         }
-
-
     }
 
     onClearBets = () => {
