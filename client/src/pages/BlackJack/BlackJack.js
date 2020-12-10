@@ -6,6 +6,7 @@ import BlackJackGameControls from '../../components/BlackJackGameControls/BlackJ
 import './BlackJack.scss';
 import ribin1 from '../../assets/images/game-elements/suitRibin1.png';
 import { updateBalanceToSession } from '../../components/GlobalHelpers/AccountMoneyHandler';
+import BlackJackCardDisplay from '../../components/BlackJackCardDisplay/BlackJackCardDisplay';
 
 class BlackJack extends Component {
 
@@ -13,12 +14,12 @@ class BlackJack extends Component {
         user: {},
         currentBet: 0,
         dealer: {
-            power: null,
+            power: 0,
             cards: [],
             bust: false
         },
         player: {
-            power: null,
+            power: 0,
             cards: [],
             bust: false
         },
@@ -102,7 +103,8 @@ class BlackJack extends Component {
             playing: true
         })
 */
-        const card1 = this.newCard(Math.floor((Math.random() * 52) + 1)); 
+        //setting up player card
+        const card1 = this.newCard(Math.floor((Math.random() * 52) + 1));
         const card2 = this.newCard(Math.floor((Math.random() * 52) + 1));
         const cards = [card1, card2];
         const power = card1.cardPower + card2.cardPower
@@ -112,11 +114,22 @@ class BlackJack extends Component {
             bust: false
         }
 
+        //setting up dealer card
+        const dealerCard = this.newCard(Math.floor((Math.random() * 52) + 1));
+        const dealerCards = [dealerCard];
+        const dealerPower = dealerCard.cardPower
+        const newDealer = {
+            power: dealerPower,
+            cards: dealerCards,
+            bust: false
+        }
+
         this.setState({
             player: newPlayer,
+            dealer: newDealer,
             playing: true
         })
-        console.log("new game " + power);
+
     }
 
     onStay = () => {
@@ -126,18 +139,18 @@ class BlackJack extends Component {
     }
 
     onHit = () => {
-        if(!this.state.player.bust && this.state.playing){
+        if (!this.state.player.bust && this.state.playing) {
             const newCard = this.newCard(Math.floor((Math.random() * 52) + 1));
 
             let newPlayer = this.state.player;
             newPlayer.cards.push(newCard);
             newPlayer.power += newCard.cardPower;
             newPlayer.bust = (newPlayer.power >= 21)
-            
+
             //if there is an ace when u bust set it to 1
-            if(newPlayer.bust){
-                newPlayer.cards.forEach((card)=>{
-                    if(card.isAce && card.cardPower === 11){
+            if (newPlayer.bust) {
+                newPlayer.cards.forEach((card) => {
+                    if (card.isAce && card.cardPower === 11) {
                         card.cardPower = 1;
                         newPlayer.power -= 10;
                         newPlayer.bust = (newPlayer.power >= 21)
@@ -163,10 +176,14 @@ class BlackJack extends Component {
                     <h2 className="black-jack__desc">PAYOUT 1 TO 1</h2>
                     <img className="black-jack__ribin" src={ribin1} alt="ribin" />
                 </section>
+                <div className="black-jack__playing-area">
+                    <BlackJackCardDisplay total={this.state.player.power} cards={this.state.player.cards} who="YOU" />
+                    <BlackJackCardDisplay total={this.state.dealer.power} cards={this.state.dealer.cards} who="DEALER"/>
+                </div>
                 <img className="black-jack__ribin" src={ribin1} alt="ribin" />
                 <div className="black-jack__bet-wrapper">
                     <BlackJackBet currentBet={this.state.currentBet} onBetMoney={this.onBetMoney} />
-                    <BlackJackGameControls onClearBets={this.onClearBets} onPlayGame={this.onPlayBlackJack} onHit={this.onHit}/>
+                    <BlackJackGameControls onClearBets={this.onClearBets} onPlayGame={this.onPlayBlackJack} onHit={this.onHit} />
                 </div>
                 <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
             </div>
