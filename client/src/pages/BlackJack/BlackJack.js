@@ -132,10 +132,69 @@ class BlackJack extends Component {
 
     }
 
+    dealerPlay = () => {
+        if (this.state.dealer.power >= 16) {
+            return;
+        }
+
+        //get new card and add to new dealer data
+        const dealerCard = this.newCard(Math.floor((Math.random() * 52) + 1));
+        let dealerCards = this.state.dealer.cards;
+        dealerCards.push(dealerCard);
+        let dealerPower = this.state.dealer.power;
+        dealerPower += dealerCard.cardPower;
+        let dealerBust = dealerPower > 21;
+
+        //check if over 21 and have an ace
+        if (dealerBust) {
+            dealerCards.cards.forEach((card) => {
+                if (card.isAce && card.cardPower === 11) {
+                    card.cardPower = 1;
+                    dealerPower -= 10;
+                    dealerBust = (dealerCards.power >= 21)
+                    return;
+                }
+            })
+        }
+
+        //make the new dealer object
+        const dealer = {
+            power: dealerPower,
+            cards: dealerCards,
+            bust: false
+        }
+
+        this.setState({
+            dealer: dealer
+        }, ()=>{
+            this.dealerPlay()
+        });
+    }
+
     onStay = () => {
         this.setState({
             playing: false
         })
+        this.dealerPlay();
+
+        this.whoWins();
+
+    }
+
+    whoWins = () => {
+        if (this.state.player.bust) {
+            console.log("YOU LOSE YOU BUST")
+        } else if (this.state.dealer.bust) {
+            console.log("YOU WIN DEALER BUST")
+        } else if (this.state.player.power > this.state.dealer.power) {
+            console.log("YOU WIN");
+        }
+        else if (this.state.player.power === this.state.dealer.power) {
+            console.log("TIE YOU LOSE STILL")
+        }
+        else {
+            console.log("TIE YOU LOSE STILL")
+        }
     }
 
     onHit = () => {
@@ -167,6 +226,7 @@ class BlackJack extends Component {
     }
 
 
+
     render() {
         return (
             <div className="black-jack">
@@ -178,12 +238,12 @@ class BlackJack extends Component {
                 </section>
                 <div className="black-jack__playing-area">
                     <BlackJackCardDisplay total={this.state.player.power} cards={this.state.player.cards} who="YOU" />
-                    <BlackJackCardDisplay total={this.state.dealer.power} cards={this.state.dealer.cards} who="DEALER"/>
+                    <BlackJackCardDisplay total={this.state.dealer.power} cards={this.state.dealer.cards} who="DEALER" />
                 </div>
                 <img className="black-jack__ribin" src={ribin1} alt="ribin" />
                 <div className="black-jack__bet-wrapper">
                     <BlackJackBet currentBet={this.state.currentBet} onBetMoney={this.onBetMoney} />
-                    <BlackJackGameControls onClearBets={this.onClearBets} onPlayGame={this.onPlayBlackJack} onHit={this.onHit} />
+                    <BlackJackGameControls onClearBets={this.onClearBets} onPlayGame={this.onPlayBlackJack} onHit={this.onHit} onStay={this.onStay}/>
                 </div>
                 <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
             </div>
