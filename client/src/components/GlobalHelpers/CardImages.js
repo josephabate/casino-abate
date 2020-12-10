@@ -51,7 +51,7 @@ import card50 from '../../assets/images/cards/deck-of-cards-50.png'
 import card51 from '../../assets/images/cards/deck-of-cards-51.png'
 import card52 from '../../assets/images/cards/deck-of-cards-52.png'
 
-export default [
+const deck = [
     card1,
     card2,
     card3,
@@ -105,3 +105,5 @@ export default [
     card51,
     card52
 ];
+
+export default deck;

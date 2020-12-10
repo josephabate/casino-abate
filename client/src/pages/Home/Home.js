@@ -10,7 +10,6 @@ class Home extends Component {
 
     componentDidMount() {
         if (!!sessionStorage.getItem("user")) {
-            console.log()
             const user = JSON.parse(sessionStorage.getItem("user"));
             this.setState({
                 username: user.username,
@@ -35,6 +34,7 @@ class Home extends Component {
                         <GamePicker game="SLOTS" />
                     </div>
                 </div>
+                
             </section>
         );
     }
