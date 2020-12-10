@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './BlackJack.scss';
 
 class BlackJack extends Component {
     constructor(props) {
