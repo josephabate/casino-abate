@@ -21,7 +21,7 @@ const BlackJackBet = (props) => {
                         props.onBetMoney(25)
                     }} src={chip25} alt="$25 bet" />
                     <img onClick={() => {
-                        this.props.onBetMoney(50)
+                        props.onBetMoney(50)
                     }} src={chip50} alt="$50 bet" />
                     <img onClick={() => {
                         props.onBetMoney(100)

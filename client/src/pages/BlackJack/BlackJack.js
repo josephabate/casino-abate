@@ -21,7 +21,8 @@ class BlackJack extends Component {
         player: {
             power: null,
             img: null
-        }
+        },
+        playing: false
     }
 
     constructor(props) {
@@ -46,7 +47,7 @@ class BlackJack extends Component {
         let newUser = this.state.user;
 
         //take money from user for bets
-        if (betAmount <= newUser.money) {
+        if (betAmount <= newUser.money && !this.state.playing) {
             newUser.money -= betAmount;
             bet += betAmount;
 
@@ -55,6 +56,17 @@ class BlackJack extends Component {
                 currentBet: bet
             });
         }
+    }
+
+    onClearBets = () => {
+        //give user money back
+        let newUser = this.state.user;
+        newUser.money += this.state.currentBet;
+
+        this.setState({
+            user: newUser,
+            currentBet: 0
+        });
     }
 
 
@@ -71,7 +83,7 @@ class BlackJack extends Component {
                 <img className="black-jack__ribin" src={ribin1} alt="ribin" />
                 <div className="black-jack__bet-wrapper">
                     <BlackJackBet currentBet={this.state.currentBet} onBetMoney={this.onBetMoney} />
-                    <BlackJackGameControls />
+                    <BlackJackGameControls onClearBets={this.onClearBets}/>
                 </div>
                 <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
             </div>
