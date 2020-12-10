@@ -5,6 +5,7 @@ import PlayerDashBoard from '../../components/PlayerDashBoard/PlayerDashBoard';
 import RouletteTable from '../../components/RouletteTable/RouletteTable';
 import RouletteWheel from '../../components/RouletteWheel/RouletteWheel';
 import { v4 as uuidv4 } from 'uuid';
+import { updateBalanceToSession } from '../../components/GlobalHelpers/AccountMoneyHandler';
 import './Roulette.scss';
 
 class Roulette extends Component {
@@ -37,8 +38,8 @@ class Roulette extends Component {
         //change bet collected state to true so you can only collect once
         let bets = this.state.bets;
 
-        bets.forEach((el) =>{
-            if(el.id === id){
+        bets.forEach((el) => {
+            if (el.id === id) {
                 el.collected = true;
             }
         })
@@ -49,6 +50,9 @@ class Roulette extends Component {
             user: { username: this.state.user.username, money: userData.money },
             bets: bets
         })
+
+        //rewrite to session storage - imported method
+        updateBalanceToSession(userData.money)
     }
 
     addBets = (ratio, name, money) => {
@@ -61,7 +65,8 @@ class Roulette extends Component {
         let userData = this.state.user;
         userData.money -= money;
 
-        sessionStorage.setItem("user", JSON.stringify(userData));
+        //rewrite to session storage - imported method
+        updateBalanceToSession(userData.money)
 
         this.setState({
             bets: newBets,
@@ -92,7 +97,7 @@ class Roulette extends Component {
     }
 
     getNumber = () => {
-        const wheelNumber = Math.floor(Math.random() * 37); 
+        const wheelNumber = Math.floor(Math.random() * 37);
         this.setState({
             number: wheelNumber,
             canBet: false
@@ -106,9 +111,9 @@ class Roulette extends Component {
                 <h1 className="Roulette__title">Roulette</h1>
                 <div className="Roulette__gameScreen">
                     <div className="Roulette__leftCol">
-                        {this.state.number?<button onClick={this.resetNumber}>reset</button>:<button onClick={this.getNumber}>GET NUMBER</button> }
+                        {this.state.number ? <button onClick={this.resetNumber}>reset</button> : <button onClick={this.getNumber}>GET NUMBER</button>}
                         <RouletteWheel number={this.state.number} />
-                        <BetScreen addWinnings={this.addWinnings} allBets={this.state.bets} wheelNumber={this.state.number}/>
+                        <BetScreen addWinnings={this.addWinnings} allBets={this.state.bets} wheelNumber={this.state.number} />
                     </div>
                     <div>
                         <RouletteTable onSetBetNumber={this.setBetNumber} />

@@ -5,6 +5,8 @@ import PlayerDashBoard from '../../components/PlayerDashBoard/PlayerDashBoard';
 import './War.scss';
 import ribin1 from '../../assets/images/game-elements/suitRibin1.png';
 import WarBet from '../../components/WarBet/WarBet';
+import { updateBalanceToSession } from '../../components/GlobalHelpers/AccountMoneyHandler';
+
 
 class War extends Component {
 
@@ -52,7 +54,7 @@ class War extends Component {
             });
         }
 
-        
+
     }
 
     onClearBets = () => {
@@ -67,7 +69,7 @@ class War extends Component {
     }
 
     onPlayWar = () => {
-        if(this.state.currentBet === 0){
+        if (this.state.currentBet === 0) {
             return;
         }
         let newUser = this.state.user;
@@ -80,24 +82,24 @@ class War extends Component {
         //convert 52 to the right card and power
         const playerCard = playerPowerNumberRaw - 1;
         let playerPower = playerPowerNumberRaw % 13;
-        if(playerPower === 0){
+        if (playerPower === 0) {
             playerPower = 13;//reset King power
-        }else if(playerPower === 1){
+        } else if (playerPower === 1) {
             playerPower = 14;//reset Ace power
         }
 
         const dealerCard = dealerPowerNumberRaw - 1;
         let dealerPower = dealerPowerNumberRaw % 13;
-        if(dealerPower === 0){
+        if (dealerPower === 0) {
             dealerPower = 13;//reset King power
-        }else if(dealerPower === 1){
+        } else if (dealerPower === 1) {
             dealerPower = 14;//reset Ace power
         }
 
-        if(playerPower > dealerPower){
+        if (playerPower > dealerPower) {
             betAmount *= 2;
-        }else if(playerPower === dealerPower){
-        }else{
+        } else if (playerPower === dealerPower) {
+        } else {
             betAmount = 0;
         }
 
@@ -116,7 +118,8 @@ class War extends Component {
             }
         });
 
-        sessionStorage.setItem("user", JSON.stringify(newUser));
+        //rewrite to session storage - imported method
+        updateBalanceToSession(newUser.money)
     }
 
     render() {
@@ -136,7 +139,7 @@ class War extends Component {
                 </div>
 
                 <img className="War__ribin" src={ribin1} alt="ribin" />
-                <WarBet currentBet={this.state.currentBet} onBetMoney={this.onBetMoney} clearBets={this.onClearBets} playGame={this.onPlayWar}/>
+                <WarBet currentBet={this.state.currentBet} onBetMoney={this.onBetMoney} clearBets={this.onClearBets} playGame={this.onPlayWar} />
 
                 <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
             </section>

@@ -66,7 +66,7 @@ app.post("/register", (req, res) => {
 });
 
 app.post("/login", (req, res, next) => {
-  console.log(req.body);
+  console.log("----" + req.body);
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
     if (!user) res.status(404).send("User not found");
@@ -75,6 +75,7 @@ app.post("/login", (req, res, next) => {
         if (err) throw err;
         //only send back this user data
         const userObj = {
+          id: req.user._id,
           username: req.user.username,
           verified: req.user.verified,
           money: req.user.money
@@ -94,6 +95,10 @@ app.get("/user", (req, res) => {
     money: req.user.money
   }
   res.send(userObj); //authentication is stored here
+})
+
+app.put("/user/money", ()=>{
+  User.updateOne({})
 })
 
 //Helpers 
