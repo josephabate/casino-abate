@@ -4,6 +4,8 @@ import PlayDeck from '../../components/PlayDeck/PlayDeck';
 import PlayerDashBoard from '../../components/PlayerDashBoard/PlayerDashBoard';
 import './War.scss';
 
+import deck from '../../components/GlobalHelpers/CardImages';
+
 import ribin1 from '../../assets/images/game-elements/suitRibin1.png';
 import WarBet from '../../components/WarBet/WarBet';
 
