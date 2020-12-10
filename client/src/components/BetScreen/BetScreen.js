@@ -4,7 +4,7 @@ import './BetScreen.scss';
 function checkForWinner(betNumber, landedNumber) {
 
     if (!isNaN(betNumber)) {
-        return betNumber == landedNumber;
+        return parseInt(betNumber) === parseInt(landedNumber);
     } else if (betNumber.includes("TOP 2 TO 1")) {
         for (let x = 3; x <= 36; x = x + 3) {
             if (x === landedNumber) {
