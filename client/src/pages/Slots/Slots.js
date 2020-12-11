@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import SlotMachine from '../../components/SlotMachine/SlotMachine';
+
 
 class Slots extends Component {
     constructor(props) {
@@ -11,6 +13,7 @@ class Slots extends Component {
         return (
             <div>
                 <h1>Slots</h1>
+            <SlotMachine />
             </div>
         );
     }
