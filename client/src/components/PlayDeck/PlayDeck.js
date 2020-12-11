@@ -6,7 +6,7 @@ const PlayDeck = (props) => {
         <div>
             <h2>{props.player}</h2>
             <div className="PlayDeck">
-                {(props.image)? <img src={deck[parseInt(props.image)]} alt="card" className="PlayDeck__card" /> : <></>}
+                {(Number.isInteger(props.image))? <img src={deck[parseInt(props.image)]} alt="card" className="PlayDeck__card" /> : <></>}
             </div>
         </div>
     );

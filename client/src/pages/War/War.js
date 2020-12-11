@@ -21,7 +21,8 @@ class War extends Component {
         player: {
             power: null,
             img: null
-        }
+        },
+        endGameMessage: ""
     }
 
     constructor(props) {
@@ -51,7 +52,8 @@ class War extends Component {
 
             this.setState({
                 user: newUser,
-                currentBet: bet
+                currentBet: bet,
+                endGameMessage: ""
             });
         }
     }
@@ -69,7 +71,7 @@ class War extends Component {
 
     onPlayWar = () => {
         if (this.state.currentBet === 0) {
-            return;
+           return;
         }
         let newUser = this.state.user;
         let betAmount = this.state.currentBet;
@@ -86,7 +88,7 @@ class War extends Component {
         } else if (playerPower === 1) {
             playerPower = 14;//reset Ace power
         }
-
+        
         const dealerCard = dealerPowerNumberRaw - 1;
         let dealerPower = dealerPowerNumberRaw % 13;
         if (dealerPower === 0) {
@@ -95,10 +97,14 @@ class War extends Component {
             dealerPower = 14;//reset Ace power
         }
 
+        let endGame = ""
         if (playerPower > dealerPower) {
             betAmount *= 2;
+            endGame = `YOU IN $${betAmount}`;
         } else if (playerPower === dealerPower) {
+            endGame = `WAR - TIE`;
         } else {
+            endGame = `YOU LOSE`;
             betAmount = 0;
         }
 
@@ -114,7 +120,8 @@ class War extends Component {
             player: {
                 power: playerPower,
                 img: playerCard
-            }
+            },
+            endGameMessage: endGame
         });
 
         //rewrite to session storage - imported method
@@ -129,11 +136,11 @@ class War extends Component {
                     <h2 className="War__title">CASINO WAR</h2>
                     <h4 className="War__rule">$5 min</h4>
                     <h2 className="War__desc">PAYOUT 1 TO 1</h2>
-
                     <img className="War__ribin" src={ribin1} alt="ribin" />
                 </div>
                 <div className="War__game">
                     <PlayDeck player="YOU" image={this.state.player.img} />
+                    <h1>{this.state.endGameMessage}</h1>
                     <PlayDeck player="DEALER" image={this.state.dealer.img} />
                 </div>
 

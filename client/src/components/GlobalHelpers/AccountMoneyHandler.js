@@ -17,7 +17,6 @@ export const updateBalanceToSession = (money) => {
         url: `${API_URL}/user/money`,
         data: user
     }).then((res) => {
-        console.log(res.status)
     })
         .catch((err) => {
             console.log(err)
