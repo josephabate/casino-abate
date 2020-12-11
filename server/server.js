@@ -57,6 +57,7 @@ app.post("/register", (req, res) => {
       const newUser = new User({
         email: req.body.email,
         username: req.body.username,
+        money: "150",
         password: hashedPassword,
         verified: false
       });

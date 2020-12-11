@@ -23,7 +23,8 @@ class BlackJack extends Component {
             cards: [],
             bust: false
         },
-        playing: false
+        playing: false,
+        endGameMessage: ""
     }
 
     constructor(props) {
@@ -89,26 +90,20 @@ class BlackJack extends Component {
             cardPower: power,
             cardImg: playerCard,
         }
-
         return newCard;
     }
 
     //Game Methods
     onPlayBlackJack = () => {
-        /**
-         *  if (this.state.currentBet === 0) {
+        //must have money on bet to play
+        if (this.state.currentBet === 0) {
             return;
         }
-         */
-        /*
-        this.setState({
-            playing: true
-        })
-*/
-//if a game is already in sesson dont start a new one
-if(this.state.playing){
-    return;
-}
+
+        //if a game is already in sesson dont start a new one
+        if (this.state.playing) {
+            return;
+        }
         //setting up player card
         const card1 = this.newCard(Math.floor((Math.random() * 52) + 1));
         const card2 = this.newCard(Math.floor((Math.random() * 52) + 1));
@@ -133,7 +128,8 @@ if(this.state.playing){
         this.setState({
             player: newPlayer,
             dealer: newDealer,
-            playing: true
+            playing: true,
+            endGameMessage: ""
         })
 
     }
@@ -143,39 +139,41 @@ if(this.state.playing){
             this.whoWins();
             return;
         }
+        setTimeout(() => {
+            //get new card and add to new dealer data
+            const dealerCard = this.newCard(Math.floor((Math.random() * 52) + 1));
+            let dealerCards = this.state.dealer.cards;
+            dealerCards.push(dealerCard);
+            let dealerPower = this.state.dealer.power;
+            dealerPower += dealerCard.cardPower;
+            let dealerBust = dealerPower > 21;
 
-        //get new card and add to new dealer data
-        const dealerCard = this.newCard(Math.floor((Math.random() * 52) + 1));
-        let dealerCards = this.state.dealer.cards;
-        dealerCards.push(dealerCard);
-        let dealerPower = this.state.dealer.power;
-        dealerPower += dealerCard.cardPower;
-        let dealerBust = dealerPower > 21;
+            //check if over 21 and have an ace
+            if (dealerBust) {
+                dealerCards.forEach((card) => {
+                    if (card.isAce && card.cardPower === 11) {
+                        card.cardPower = 1;
+                        dealerPower -= 10;
+                        dealerBust = (dealerCards.power >= 21)
+                        return;
+                    }
+                })
+            }
 
-        //check if over 21 and have an ace
-        if (dealerBust) {
-            dealerCards.forEach((card) => {
-                if (card.isAce && card.cardPower === 11) {
-                    card.cardPower = 1;
-                    dealerPower -= 10;
-                    dealerBust = (dealerCards.power >= 21)
-                    return;
-                }
-            })
-        }
+            //make the new dealer object
+            const dealer = {
+                power: dealerPower,
+                cards: dealerCards,
+                bust: dealerBust
+            }
 
-        //make the new dealer object
-        const dealer = {
-            power: dealerPower,
-            cards: dealerCards,
-            bust: dealerBust
-        }
+            this.setState({
+                dealer: dealer
+            }, () => {
+                this.dealerPlay()
+            });
+        }, 600);
 
-        this.setState({
-            dealer: dealer
-        }, () => {
-            this.dealerPlay()
-        });
     }
 
     onStay = () => {
@@ -188,20 +186,41 @@ if(this.state.playing){
     }
 
     whoWins = () => {
+        let message = ""
+        let bet = this.state.currentBet;
+        let userMoney = this.state.user;
+        //set state and make a var for if you loose or win and then rest it when you start a gaem
+        //it will be used for the card are and remove the "- total: #" and replace it witht win or lose 
         if (this.state.player.bust) {
-            console.log("YOU LOSE YOU BUST");
-        } else if (this.state.dealer.bust) {
-            console.log("YOU WIN DEALER BUST");
-        } else if (this.state.player.power > this.state.dealer.power) {
-            console.log(this.state.player.power + " " + this.state.dealer.power)
-            console.log("YOU WIN");
+            message = "YOU LOSE"
+            bet = 0;
+        }
+        else if (this.state.dealer.bust) {
+            message = `YOU WIN + $${bet}`
+            bet = bet * 2;
+        }
+        else if (this.state.player.power > this.state.dealer.power) {
+            message = `YOU WIN + $${bet}`
+            bet = bet * 2;
         }
         else if (this.state.player.power === this.state.dealer.power) {
-            console.log("TIE YOU LOSE STILL");
+            message = "YOU LOSE"
+            bet = 0;
         }
         else {
-            console.log("TIE YOU LOSE STILL");
+            message = "YOU LOSE"
+            bet = 0;
         }
+
+        userMoney.money += bet;
+
+        updateBalanceToSession(userMoney.money);
+
+        this.setState({
+            endGameMessage: message,
+            currentBet: 0,
+            user: userMoney
+        });
     }
 
     onHit = () => {
@@ -250,6 +269,7 @@ if(this.state.playing){
                 </section>
                 <div className="black-jack__playing-area">
                     <BlackJackCardDisplay total={this.state.player.power} cards={this.state.player.cards} who="YOU" />
+                    <h1>{this.state.endGameMessage}</h1>
                     <BlackJackCardDisplay total={this.state.dealer.power} cards={this.state.dealer.cards} who="DEALER" />
                 </div>
                 <img className="black-jack__ribin" src={ribin1} alt="ribin" />
