@@ -73,9 +73,10 @@ class SlotMachine extends Component {
 
     //makes new slot render
     goOnce = () => {
-       /* if (/*this.props.bet === 0) {
+        this.setState({payouts: []});
+        if (this.props.bet === 0) {
             return;
-        }*/
+        }
         this.setSlotMachineNumbers();
 
         if (this.state.interval < 10) {
@@ -92,12 +93,12 @@ class SlotMachine extends Component {
     }
 
     goUntilWin = () => {
-        this.setState({winner: false}, this.setNewSlot);
+        this.setState({winner: false, payouts: []}, this.setNewSlot);
     }
 
     //makes new slot render
     setNewSlot = () => {
-        if (/*this.props.bet === 0 ||*/ this.state.winner) {
+        if (this.props.bet === 0 || this.state.winner) {
             return;
         }
 
@@ -253,7 +254,9 @@ class SlotMachine extends Component {
             count = winners[i].count;
             amount = bet * multiplier;
             payouts.push({ "amount": amount, "number": number, "count": count });
-            
+            this.setState({
+                payouts: payouts
+            })
             //pass back to main screen
             this.props.onPayOuts(payouts);
         }
@@ -299,7 +302,7 @@ class SlotMachine extends Component {
                                 {
                                     row.map((
                                         column) => {
-                                        return <SlotsIcon key={uuidv4()} image={column.number} />
+                                        return <SlotsIcon key={uuidv4()} image={column.number} payouts={this.state.payouts} />
                                     }
                                     )
                                 }
