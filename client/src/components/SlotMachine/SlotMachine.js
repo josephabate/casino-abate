@@ -72,17 +72,41 @@ class SlotMachine extends Component {
     }
 
     //makes new slot render
+    goOnce = () => {
+       /* if (/*this.props.bet === 0) {
+            return;
+        }*/
+        this.setSlotMachineNumbers();
+
+        if (this.state.interval < 10) {
+
+            setTimeout(() => {
+                this.goOnce()
+            }, 100);
+        } else {
+            this.checkForWinner();
+            this.setState({
+                interval: 0
+            });
+        }
+    }
+
+    goUntilWin = () => {
+        this.setState({winner: false}, this.setNewSlot);
+    }
+
+    //makes new slot render
     setNewSlot = () => {
-        if (this.props.bet === 0) {
-            //    return;
+        if (/*this.props.bet === 0 ||*/ this.state.winner) {
+            return;
         }
 
         this.setSlotMachineNumbers();
 
-        if (this.state.interval < 10) {
+        if (this.state.interval < 8) {
             setTimeout(() => {
                 this.setNewSlot()
-            }, 100);
+            }, 80);
         } else {
             this.checkForWinner();
             this.setState({
@@ -283,8 +307,8 @@ class SlotMachine extends Component {
                         );
                     })
                 }
-                <button onClick={this.setNewSlot}>GO!</button>
-                <button onClick={() => { this.setState({ winner: true }) }}>GstO!</button>
+                <button onClick={this.goUntilWin}>GO UNTIL WIN!</button>
+                <button onClick={this.goOnce}>GO ONCE!</button>
             </div>
         );
     }
