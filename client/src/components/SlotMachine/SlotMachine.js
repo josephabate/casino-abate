@@ -5,6 +5,7 @@ import SlotsIcon from '../SlotsIcon/SlotsIcon';
 
 class SlotMachine extends Component {
     state = {
+        bet: 0,
         slots: [
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
@@ -25,10 +26,12 @@ class SlotMachine extends Component {
             "9": 0,
             "10": 0,
         },
-        winners:[],
+        winners: [],
+        payouts: [],
         winner: false
     }
 
+    //Generates slot number
     randomNumber = (min, max) => {
         let number = Math.floor(Math.random() * (max - min)) + min;
         if (number <= 120) { number = 0; }
@@ -43,11 +46,11 @@ class SlotMachine extends Component {
         else if (number <= 955) { number = 9; }
         else { number = 10; }
 
-
         let isWinner = false
         return { isWinner: isWinner, number: number }
     }
 
+    //sets the slot machine
     setSlotMachineNumbers = () => {
         let newSlot = [
             [0, 0, 0, 0, 0, 0],
@@ -68,12 +71,13 @@ class SlotMachine extends Component {
         })
     }
 
+    //makes new slot render
     setNewSlot = () => {
-        this.setSlotMachineNumbers();
-
-        if(this.state.winner){
-            return;
+        if (this.props.bet === 0) {
+            //    return;
         }
+
+        this.setSlotMachineNumbers();
 
         if (this.state.interval < 10) {
             setTimeout(() => {
@@ -83,65 +87,177 @@ class SlotMachine extends Component {
             this.checkForWinner();
             this.setState({
                 interval: 0
-            })
-
-            setTimeout(() => {
-                this.setNewSlot()
-            }, 1000);
+            }, () => {
+                setTimeout(() => {
+                    this.setNewSlot()
+                }, 1000)
+            });
         }
     }
 
-    /**             6           12           18           24
-     * 1 (120 <)    5           15          25          50
-     * 2 (240 <)    5           15          25          50
-     * 3 (360 <)    5           15          25          50
-     * 4 (480 <)    5           15          25          50
-     * 5 (600 <)    5           15          25          50
-     * 6 (720 <)    5           15          25          50
-     * 7 (805 <)    100.0       120.0       135.0       150.0
-     * 8 (865 <)    125.0       150.0       175.0       200.0
-     * 9 (915 <)    150.0       200.0       350.0       400.0
-     * 10 (955 <)   250.0       300.0       500.0       800.0
-     * 11 ( <)   500.0       700.0       800.0       1000.0
-     * 
-     * 0 - 1000
-     * 
-     */
     checkForWinner = () => {
-        this.findWinners(this.countSlotIcons());    
+        this.findWinners(this.countSlotIcons());
     }
 
     findWinners = (icons) => {
-        if(icons[0]){}
-        if(icons[1]){}
-        if(icons[2]){}
-        if(icons[3]){}
-        if(icons[4]){}
-        if(icons[5]){}
-        if(icons[6]){}
-        if(icons[7]){}
-        if(icons[8]){}
-        if(icons[9]){}
-        if(icons[10]){}
+        const newWinners = [];
+        for (let i = 0; i < 11; i++) {
+            if (icons[i] >= 6) {
+                newWinners.push({ "number": i, "count": icons[i] });
+            }
+        }
+        if (newWinners.length > 0) {
+            this.setState({
+                winner: true,
+                winners: newWinners
+            }, () => { this.givePayOuts() });
+        }
     }
 
-    setAWinner = (icon, count, condition, winnings) => {
-        if(count >= condition){
-            return{ icon: icon, count: count: condition: condition, winnings: winnings }
+    /** 6           12           18           24
+* 1 (120 <)    5           15          25          50
+* to 
+* 6 (720 <)    5           15          25          50
+* 
+* 7 (805 <)    100.0       120.0       135.0       150.0
+* 8 (865 <)    125.0       150.0       175.0       200.0
+* 9 (915 <)    150.0       200.0       350.0       400.0
+* 10 (955 <)   250.0       300.0       500.0       800.0
+* 11 ( <)   500.0       700.0       800.0       1000.0
+* 
+* 0 - 1000
+* 
+*/
+    givePayOuts = () => {
+        const winners = this.state.winners;
+        const bet = this.state.bet;
+        const payouts = [];
+
+        let multiplier;
+        let amount;
+        let number;
+        let count;
+
+        for (let i = 0; i < winners.length; i++) {
+            if (winners[i].number <= 6) {
+                if (winners[i].count >= 24) {
+                    multiplier = 50;
+                }
+                if (winners[i].count >= 18) {
+                    multiplier = 25;
+                }
+                if (winners[i].count >= 12) {
+                    multiplier = 15;
+                }
+                if (winners[i].count >= 6) {
+                    multiplier = 5;
+                }
+            }
+            if (winners[i].number === 7) {
+                if (winners[i].count >= 24) {
+                    multiplier = 150;
+                }
+                if (winners[i].count >= 18) {
+                    multiplier = 135;
+                }
+                if (winners[i].count >= 12) {
+                    multiplier = 120;
+                }
+                if (winners[i].count >= 6) {
+                    multiplier = 100;
+                }
+            }
+            if (winners[i].number === 8) {
+                if (winners[i].count >= 24) {
+                    multiplier = 200;
+                }
+                if (winners[i].count >= 18) {
+                    multiplier = 175;
+                }
+                if (winners[i].count >= 12) {
+                    multiplier = 150;
+                }
+                if (winners[i].count >= 6) {
+                    multiplier = 125;
+                }
+            }
+            if (winners[i].number === 9) {
+                if (winners[i].count >= 24) {
+                    multiplier = 400;
+                }
+                if (winners[i].count >= 18) {
+                    multiplier = 350;
+                }
+                if (winners[i].count >= 12) {
+                    multiplier = 200;
+                }
+                if (winners[i].count >= 6) {
+                    multiplier = 150;
+                }
+            }
+            if (winners[i].number === 10) {
+                if (winners[i].count >= 24) {
+                    multiplier = 800;
+                }
+                if (winners[i].count >= 18) {
+                    multiplier = 500;
+                }
+                if (winners[i].count >= 12) {
+                    multiplier = 300;
+                }
+                if (winners[i].count >= 6) {
+                    multiplier = 250;
+                }
+            }
+            if (winners[i].number === 11) {
+                if (winners[i].count >= 24) {
+                    multiplier = 1000;
+                }
+                if (winners[i].count >= 18) {
+                    multiplier = 800;
+                }
+                if (winners[i].count >= 12) {
+                    multiplier = 700;
+                }
+                if (winners[i].count >= 6) {
+                    multiplier = 500;
+                }
+            }
+
+
+            number = winners[i].number;
+            count = winners[i].count;
+            amount = bet * multiplier;
+            payouts.push({ "amount": amount, "number": number, "count": count });
+            
+            //pass back to main screen
+            this.props.onPayOuts(payouts);
         }
     }
 
     countSlotIcons = () => {
         let slot = this.state.slots;
-        let icons = this.state.iconCounter;
-        for(let i = 0; i < slot.length; i ++){
-            for(let x = 0; x < slot[i].length; x++){
-                icons[slot[i][x].number] ++;
+        let icons = {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "6": 0,
+            "7": 0,
+            "8": 0,
+            "9": 0,
+            "10": 0
+        };
+        for (let i = 0; i < slot.length; i++) {
+            for (let x = 0; x < slot[i].length; x++) {
+                icons[slot[i][x].number]++;
             }
         }
-        this.setState({
-            iconCounter: icons
-        });
+        /* this.setState({
+             iconCounter: icons
+         });*/
         return icons;
     }
 
@@ -159,7 +275,7 @@ class SlotMachine extends Component {
                                 {
                                     row.map((
                                         column) => {
-                                        return <SlotsIcon image={column.number} />
+                                        return <SlotsIcon key={uuidv4()} image={column.number} />
                                     }
                                     )
                                 }
@@ -167,10 +283,8 @@ class SlotMachine extends Component {
                         );
                     })
                 }
-
                 <button onClick={this.setNewSlot}>GO!</button>
-                <button onClick={()=>{this.setState({winner: true})}}>GstO!</button>
-
+                <button onClick={() => { this.setState({ winner: true }) }}>GstO!</button>
             </div>
         );
     }
