@@ -5,7 +5,6 @@ import SlotsIcon from '../SlotsIcon/SlotsIcon';
 
 class SlotMachine extends Component {
     state = {
-        bet: 0,
         slots: [
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
@@ -73,7 +72,12 @@ class SlotMachine extends Component {
 
     //makes new slot render
     goOnce = () => {
-        this.setState({payouts: []});
+        this.props.onPlaySpin();
+        this.runRound();
+    }
+
+    runRound = () => {
+        this.setState({ payouts: [] });
         if (this.props.bet === 0) {
             return;
         }
@@ -82,7 +86,7 @@ class SlotMachine extends Component {
         if (this.state.interval < 10) {
 
             setTimeout(() => {
-                this.goOnce()
+                this.runRound()
             }, 100);
         } else {
             this.checkForWinner();
@@ -93,11 +97,14 @@ class SlotMachine extends Component {
     }
 
     goUntilWin = () => {
-        this.setState({winner: false, payouts: []}, this.setNewSlot);
+        this.setState({ winner: false, payouts: [], interval: 0 }, this.setNewSlot);
     }
 
     //makes new slot render
     setNewSlot = () => {
+        if(this.state.interval === 1){
+            this.props.onPlaySpin();
+        }
         if (this.props.bet === 0 || this.state.winner) {
             return;
         }
@@ -155,7 +162,7 @@ class SlotMachine extends Component {
 */
     givePayOuts = () => {
         const winners = this.state.winners;
-        const bet = this.state.bet;
+        const bet = this.props.bet;
         const payouts = [];
 
         let multiplier;
@@ -164,7 +171,7 @@ class SlotMachine extends Component {
         let count;
 
         for (let i = 0; i < winners.length; i++) {
-            if (winners[i].number <= 6) {
+            if (winners[i].number <= 5) {
                 if (winners[i].count >= 24) {
                     multiplier = 50;
                 }
@@ -178,7 +185,7 @@ class SlotMachine extends Component {
                     multiplier = 5;
                 }
             }
-            if (winners[i].number === 7) {
+            else if (winners[i].number === 6) {
                 if (winners[i].count >= 24) {
                     multiplier = 150;
                 }
@@ -192,7 +199,7 @@ class SlotMachine extends Component {
                     multiplier = 100;
                 }
             }
-            if (winners[i].number === 8) {
+            else if (winners[i].number === 7) {
                 if (winners[i].count >= 24) {
                     multiplier = 200;
                 }
@@ -206,7 +213,7 @@ class SlotMachine extends Component {
                     multiplier = 125;
                 }
             }
-            if (winners[i].number === 9) {
+            else if (winners[i].number === 8) {
                 if (winners[i].count >= 24) {
                     multiplier = 400;
                 }
@@ -220,7 +227,7 @@ class SlotMachine extends Component {
                     multiplier = 150;
                 }
             }
-            if (winners[i].number === 10) {
+            if (winners[i].number === 9) {
                 if (winners[i].count >= 24) {
                     multiplier = 800;
                 }
@@ -234,7 +241,7 @@ class SlotMachine extends Component {
                     multiplier = 250;
                 }
             }
-            if (winners[i].number === 11) {
+            else if (winners[i].number === 10) {
                 if (winners[i].count >= 24) {
                     multiplier = 1000;
                 }
@@ -294,24 +301,28 @@ class SlotMachine extends Component {
 
     render() {
         return (
-            <div>
-                {
-                    this.state.slots.map((row) => {
-                        return (
-                            <div className="slot__row" key={uuidv4()}>
-                                {
-                                    row.map((
-                                        column) => {
-                                        return <SlotsIcon key={uuidv4()} image={column.number} payouts={this.state.payouts} />
+            <div className="Slot-Machine">
+                <div className="Slot-Machine__machine">
+                    {
+                        this.state.slots.map((row) => {
+                            return (
+                                <div className="slot__row" key={uuidv4()}>
+                                    {
+                                        row.map((
+                                            column) => {
+                                            return <SlotsIcon key={uuidv4()} image={column.number} payouts={this.state.payouts} />
+                                        }
+                                        )
                                     }
-                                    )
-                                }
-                            </div>
-                        );
-                    })
-                }
-                <button onClick={this.goUntilWin}>GO UNTIL WIN!</button>
-                <button onClick={this.goOnce}>GO ONCE!</button>
+                                </div>
+                            );
+                        })
+                    }
+                </div>
+                <div>
+                    <button onClick={this.goUntilWin}>GO UNTIL WIN!</button>
+                    <button onClick={this.goOnce}>GO ONCE!</button>
+                </div>
             </div>
         );
     }

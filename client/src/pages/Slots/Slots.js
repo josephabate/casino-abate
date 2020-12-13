@@ -4,14 +4,18 @@ import PlayerDashBoard from '../../components/PlayerDashBoard/PlayerDashBoard';
 import SlotBets from '../../components/SlotBets/SlotBets';
 import SlotMachine from '../../components/SlotMachine/SlotMachine';
 
+//helpers
+import { updateBalanceToSession } from '../../components/GlobalHelpers/AccountMoneyHandler';
+
 
 class Slots extends Component {
-    
-    state={
-        user: { username: "", money: 0 },
+
+    state = {
+        user: {},
         bet: 0,
         payouts: [],
-        canBet: true
+        canBet: true,
+        totalWinnings: 0
     }
 
     constructor(props) {
@@ -25,7 +29,7 @@ class Slots extends Component {
         this.setState({
             payouts: newPayouts
         })
-    } 
+    }
 
     onUpdateBet = (betAmount) => {
         this.setState({
@@ -33,7 +37,7 @@ class Slots extends Component {
         });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         if (!!sessionStorage.getItem("user")) {
             const userData = JSON.parse(sessionStorage.getItem("user"))
             this.setState({
@@ -42,14 +46,44 @@ class Slots extends Component {
         }
     }
 
+    removeBetFromTotal = () => {
+        let newUser = this.state.user;
+        newUser.money -= this.state.bet;
+        this.setState({ user: newUser });
+        updateBalanceToSession(newUser.money)
+    }
+
+    addWinningsToUsersAccount = (winnings) => {
+
+        let newWinnings = this.state.totalWinnings;
+        newWinnings += winnings;
+
+        //remove first element from payouts to avoid crashing
+        let newPayouts;
+        if (this.state.payouts.length === 1) {
+            newPayouts = [];
+        }
+        else if (this.state.payouts.length >= 2) {
+            newPayouts = this.state.payouts.shift();
+        }
+
+
+        let newUser = this.state.user;
+
+        newUser.money += winnings;
+        this.setState({ user: newUser, payouts: newPayouts, totalWinnings: newWinnings });
+        updateBalanceToSession(newUser.money)
+    }
+
     render() {
         return (
             <div>
                 <h1>Slots</h1>
-            <SlotMachine bet={this.state.bet} onPayOuts={this.setPayOut}/>
-            <Payouts pay={this.state.payouts} />
-            <SlotBets onBet={this.onUpdateBet}/>
-            <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
+                <h2>TOTAL WILLINGS {`> ${this.state.totalWinnings}`}</h2>
+                <SlotMachine bet={this.state.bet} onPayOuts={this.setPayOut} onPlaySpin={this.removeBetFromTotal} />
+                <Payouts pay={this.state.payouts} addWinnigns={this.addWinningsToUsersAccount} />
+                <SlotBets onBet={this.onUpdateBet} />
+                <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
             </div>
         );
     }

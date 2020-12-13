@@ -2,10 +2,10 @@ import React from 'react';
 import icons from '../GlobalHelpers/SlotImages';
 
 const SlotsIcon = ({image, payouts}) => {
-    let style={backgroundColor: "white"};
+    let style={backgroundColor: "wheat",  "borderRadius": "1rem", margin: ".5rem"};
     payouts.forEach(payee => {
-        if(payee.number == image){
-            style.backgroundColor = "red";
+        if(payee.number === image){
+            style.backgroundColor = "grey";
         }
     });
     
