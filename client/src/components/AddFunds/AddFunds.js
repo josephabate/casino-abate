@@ -10,9 +10,7 @@ const stripePromise = loadStripe(`${API_PK_KEY}`);
 
 function AddFunds(){
 
-    const [product] = React.useState({
-        price: 100
-    })
+    const [product, setProduct] = useState(0)
 
     function handleToken(token){
         axios.post(`${API_URL}/checkout`, {token, product})
@@ -30,7 +28,7 @@ function AddFunds(){
                 <StripeCheckout 
                 stripeKey={`${API_PK_KEY}`}
                 token={handleToken}
-                amount={product.price * 100}
+                amount={product * 100}
                 name="Adding funds to your account"
                 />
             </div>

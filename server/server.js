@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const ObjectId = require('mongodb').ObjectID;
 const mongoose = require('mongoose');
 const stripe = require("stripe")("sk_test_51HyNSwFH0EgpdBvsvaP4ax2S1j0OHQ6sUV1E8KTr2RYh3rYhnWdgNOcaHVZGEUWPEyqWXTXrHIWhOOxKCwbSsMLh00pXZ4tJEw");
-const uuid = require("uuid");
+const { v4: uuidv4 } = require('uuid');
 require("dotenv").config();
 
 /* --- Files --- */
@@ -131,12 +131,12 @@ app.post("/checkout", async (req, res) => {
 
     const idempotency = uuidv4();
     const charge = await stripe.charges.create({
-      amount: product.price * 100,
+      amount: product * 100,
       currency: "cad",
       customer: customer.id,
       receipt_email: token.email,
       description: "Added funds to Account"
-    }, { idempotency });
+    });
 
     res.status(200).send("Charge Complete");
   } catch (err) {
