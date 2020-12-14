@@ -68,7 +68,6 @@ app.post("/register", (req, res) => {
 });
 
 app.post("/login", (req, res, next) => {
-  console.log("----" + req.body);
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
     if (!user) res.status(404).send("User not found");
@@ -87,6 +86,12 @@ app.post("/login", (req, res, next) => {
     }
   })(req, res, next);
 })
+
+//log the user out
+app.get('/logout', (req, res) =>{
+  console.log("LOGOUT")
+  req.logout();
+});
 
 //sends user to application
 app.get("/user", (req, res) => {
