@@ -80,9 +80,13 @@ class Slots extends Component {
     render() {
         return (
             <div className="Slots">
-                <h1>Slots</h1>
-                <h2>TOTAL WILLINGS {`> ${this.state.totalWinnings}`}</h2>
-                <SlotMachine bet={this.state.bet} onPayOuts={this.setPayOut} onPlaySpin={this.removeBetFromTotal} />
+                <h1 className="Slots__title">Slots</h1>
+                <div>
+                    <div className="Slots__winnings-wrapper">
+                        <h2 className="Slots__winnings">TOTAL WINNINGS: {` $${this.state.totalWinnings}`}</h2>
+                    </div>
+                    <SlotMachine bet={this.state.bet} onPayOuts={this.setPayOut} onPlaySpin={this.removeBetFromTotal} />
+                </div>
                 <Payouts pay={this.state.payouts} addWinnigns={this.addWinningsToUsersAccount} />
                 <SlotBets onBet={this.onUpdateBet} />
                 <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />

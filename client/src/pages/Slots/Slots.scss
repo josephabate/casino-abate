@@ -3,4 +3,27 @@
 
 .Slots{
     background-color: $tableColor;
+    padding: 1rem;
+    background-color: $tableColor;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow-y: scroll;
+    &__title{
+        margin: 5px 0;
+            color: white;
+    }
+    &__winnings{
+        &-wrapper{
+        width: 100%;
+        background-color: white;
+        padding: .5rem;
+        margin: 1rem 0;
+        border: .5rem solid black;
+        border-radius: 2rem;
+        }
+    }
 }
