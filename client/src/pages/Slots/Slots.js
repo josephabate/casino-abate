@@ -4,6 +4,8 @@ import PlayerDashBoard from '../../components/PlayerDashBoard/PlayerDashBoard';
 import SlotBets from '../../components/SlotBets/SlotBets';
 import SlotMachine from '../../components/SlotMachine/SlotMachine';
 
+import './Slots.scss';
+
 //helpers
 import { updateBalanceToSession } from '../../components/GlobalHelpers/AccountMoneyHandler';
 
@@ -77,7 +79,7 @@ class Slots extends Component {
 
     render() {
         return (
-            <div>
+            <div className="Slots">
                 <h1>Slots</h1>
                 <h2>TOTAL WILLINGS {`> ${this.state.totalWinnings}`}</h2>
                 <SlotMachine bet={this.state.bet} onPayOuts={this.setPayOut} onPlaySpin={this.removeBetFromTotal} />
