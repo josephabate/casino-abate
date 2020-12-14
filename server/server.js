@@ -124,22 +124,23 @@ app.post("/checkout", async (req, res) => {
   try {
     const { product, token } = req.body;
 
-    const customer = await stripe.customer.create({
+    const customer = await stripe.customers.create({
       email: token.email,
       source: token.id
     });
 
-    const idEmpotency_key = uuid();
-    const charge = await stripe.cahrges.create({
+    const idempotency = uuidv4();
+    const charge = await stripe.charges.create({
       amount: product.price * 100,
       currency: "cad",
       customer: customer.id,
       receipt_email: token.email,
-      description: product.name
-    }, { idEmpotency_key });
+      description: "Added funds to Account"
+    }, { idempotency });
 
     res.status(200).send("Charge Complete");
   } catch (err) {
+    console.log(err);
     res.status(500).send("Issue with charge Charge");
   }
 
