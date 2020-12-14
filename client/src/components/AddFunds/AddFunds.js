@@ -26,7 +26,7 @@ class AddFunds extends Component {
     }
 
     changePrice = (e) => {
-        if (!e.target.value.includes("-") && !e.target.value != ("-")) {
+        if (!e.target.value.includes("-")) {
             this.setState({
                 product: e.target.value
             })
@@ -35,15 +35,16 @@ class AddFunds extends Component {
 
     render() {
         return (
-            <div>
+            <section className="AddFunds">
+                <h3>ADD FUNDS</h3>
+                <input type="number" value={this.state.product} onChange={this.changePrice} />
                 <StripeCheckout
                     stripeKey={`${API_PK_KEY}`}
                     token={this.handleToken}
                     amount={this.state.product * 100}
                     name="Adding funds to your account"
                 />
-                <input type="number" value={this.state.product} onChange={this.changePrice} />
-            </div>
+            </section>
         );
     }
 }
