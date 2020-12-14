@@ -24,6 +24,8 @@
     "mongoose": "^5.11.4",
     "nodemon": "^2.0.6",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "stripe": "^8.128.0",
+    "uuid": "^8.3.2"
   }
 }

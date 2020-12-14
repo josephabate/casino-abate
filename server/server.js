@@ -8,6 +8,8 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const ObjectId = require('mongodb').ObjectID;
 const mongoose = require('mongoose');
+const stripe = require("stripe")("sk_test_51HyNSwFH0EgpdBvsvaP4ax2S1j0OHQ6sUV1E8KTr2RYh3rYhnWdgNOcaHVZGEUWPEyqWXTXrHIWhOOxKCwbSsMLh00pXZ4tJEw");
+const uuid = require("uuid");
 require("dotenv").config();
 
 /* --- Files --- */
@@ -88,7 +90,7 @@ app.post("/login", (req, res, next) => {
 })
 
 //log the user out
-app.get('/logout', (req, res) =>{
+app.get('/logout', (req, res) => {
   console.log("LOGOUT")
   req.logout();
 });
@@ -116,6 +118,33 @@ app.put("/user/money", (req, res) => {
         res.status(200).send(docs)
       }
     });
+})
+
+app.post("/checkout", async (req, res) => {
+  try {
+    const { product, token } = req.body;
+
+    const customer = await stripe.customer.create({
+      email: token.email,
+      source: token.id
+    });
+
+    const idEmpotency_key = uuid();
+    const charge = await stripe.cahrges.create({
+      amount: product.price * 100,
+      currency: "cad",
+      customer: customer.id,
+      receipt_email: token.email,
+      description: product.name
+    }, { idEmpotency_key });
+
+    res.status(200).send("Charge Complete");
+  } catch (err) {
+    res.status(500).send("Issue with charge Charge");
+  }
+
+
+
 })
 
 //Helpers 
