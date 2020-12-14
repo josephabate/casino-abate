@@ -80,7 +80,6 @@ class Slots extends Component {
     render() {
         return (
             <div className="Slots">
-                <h1 className="Slots__title">Slots</h1>
                 <div>
                     <div className="Slots__winnings-wrapper">
                         <h2 className="Slots__winnings">TOTAL WINNINGS: {` $${this.state.totalWinnings}`}</h2>
