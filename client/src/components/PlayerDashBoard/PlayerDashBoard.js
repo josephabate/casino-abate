@@ -37,7 +37,7 @@ const PlayerDashBoard = (props) => {
                 </div>
             </div>
             <div>
-                <AddFunds />
+                <AddFunds onAddMoney={props.onUpdateUserBalance} />
             </div>
         </div>
     );

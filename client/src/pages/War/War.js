@@ -73,7 +73,6 @@ class War extends Component {
         if (this.state.currentBet === 0) {
            return;
         }
-        let newUser = this.state.user;
         let betAmount = this.state.currentBet;
 
         //get card number from 1-52
@@ -108,10 +107,7 @@ class War extends Component {
             betAmount = 0;
         }
 
-        newUser.money += betAmount;
-
         this.setState({
-            user: newUser,
             currentBet: 0,
             dealer: {
                 power: dealerPower,
@@ -122,6 +118,18 @@ class War extends Component {
                 img: playerCard
             },
             endGameMessage: endGame
+        });
+
+        this.updateMoney(betAmount)
+    }
+
+    updateMoney = (betAmount) =>{
+        let newUser = this.state.user;
+
+        newUser.money += betAmount;
+
+        this.setState({
+            user: newUser,
         });
 
         //rewrite to session storage - imported method
@@ -147,7 +155,7 @@ class War extends Component {
                 <img className="War__ribin" src={ribin1} alt="ribin" />
                 <WarBet currentBet={this.state.currentBet} onBetMoney={this.onBetMoney} clearBets={this.onClearBets} playGame={this.onPlayWar} />
 
-                <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
+                <PlayerDashBoard onUpdateUserBalance={this.updateMoney} username={this.state.user.username} money={this.state.user.money} />
             </section>
         );
     }

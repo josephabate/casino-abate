@@ -9,7 +9,6 @@ const bodyParser = require('body-parser');
 const ObjectId = require('mongodb').ObjectID;
 const mongoose = require('mongoose');
 const stripe = require("stripe")("sk_test_51HyNSwFH0EgpdBvsvaP4ax2S1j0OHQ6sUV1E8KTr2RYh3rYhnWdgNOcaHVZGEUWPEyqWXTXrHIWhOOxKCwbSsMLh00pXZ4tJEw");
-const { v4: uuidv4 } = require('uuid');
 require("dotenv").config();
 
 /* --- Files --- */
@@ -122,16 +121,15 @@ app.put("/user/money", (req, res) => {
 
 app.post("/checkout", async (req, res) => {
   try {
-    const { product, token } = req.body;
+    const { amount, token } = req.body;
 
     const customer = await stripe.customers.create({
       email: token.email,
       source: token.id
     });
 
-    const idempotency = uuidv4();
     const charge = await stripe.charges.create({
-      amount: product * 100,
+      amount: amount * 100,
       currency: "cad",
       customer: customer.id,
       receipt_email: token.email,

@@ -104,6 +104,13 @@ class Roulette extends Component {
         })
     }
 
+    addFunds = (funds)=>{
+        let newUser = this.state.user;
+        newUser.money += funds;
+        this.setState({ user: newUser });
+        updateBalanceToSession(newUser.money)
+    }
+
     render() {
         return (
             <div className="Roulette">
@@ -117,7 +124,7 @@ class Roulette extends Component {
                     </div>
                     <div>
                         <RouletteTable onSetBetNumber={this.setBetNumber} />
-                        <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
+                        <PlayerDashBoard onUpdateUserBalance={this.addFunds} username={this.state.user.username} money={this.state.user.money} />
                     </div>
                 </div>
             </div>

@@ -256,7 +256,12 @@ class BlackJack extends Component {
         }
     }
 
-
+    addFunds = (funds)=>{
+        let newUser = this.state.user;
+        newUser.money += funds;
+        this.setState({ user: newUser });
+        updateBalanceToSession(newUser.money)
+    }
 
     render() {
         return (
@@ -277,7 +282,7 @@ class BlackJack extends Component {
                     <BlackJackBet currentBet={this.state.currentBet} onBetMoney={this.onBetMoney} />
                     <BlackJackGameControls onClearBets={this.onClearBets} onPlayGame={this.onPlayBlackJack} onHit={this.onHit} onStay={this.onStay} />
                 </div>
-                <PlayerDashBoard username={this.state.user.username} money={this.state.user.money} />
+                <PlayerDashBoard onUpdateUserBalance={this.addFunds} username={this.state.user.username} money={this.state.user.money} />
             </div>
         );
     }
