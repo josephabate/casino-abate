@@ -1,0 +1,12 @@
+.AddFunds{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &__title{
+        margin-top: 0;
+    }
+    &__input{
+        padding: 5px;
+        font-weight: 600;
+    }
+}

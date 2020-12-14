@@ -36,9 +36,7 @@ const PlayerDashBoard = (props) => {
                     <button onClick={() => { logout() }}>Logout</button>
                 </div>
             </div>
-            <div>
-                <AddFunds onAddMoney={props.onUpdateUserBalance} />
-            </div>
+            <AddFunds onAddMoney={props.onUpdateUserBalance} />
         </div>
     );
 }

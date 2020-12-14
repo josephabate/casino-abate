@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-
 import StripeCheckout from 'react-stripe-checkout';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
-import { updateBalanceToSession } from '../GlobalHelpers/AccountMoneyHandler';
+import './AddFunds.scss';
+
 const API_URL = process.env.REACT_APP_API_URL;
 const API_PK_KEY = process.env.REACT_APP_PK_KEY;
-
 const stripePromise = loadStripe(`${API_PK_KEY}`);
 
 class AddFunds extends Component {
@@ -36,8 +35,8 @@ class AddFunds extends Component {
     render() {
         return (
             <section className="AddFunds">
-                <h3>ADD FUNDS</h3>
-                <input type="number" value={this.state.product} onChange={this.changePrice} />
+                <h3 className="AddFunds__title">ADD FUNDS</h3>
+                <input className="AddFunds__input" type="number" value={this.state.product} onChange={this.changePrice} />
                 <StripeCheckout
                     stripeKey={`${API_PK_KEY}`}
                     token={this.handleToken}
