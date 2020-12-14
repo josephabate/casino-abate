@@ -320,8 +320,8 @@ class SlotMachine extends Component {
                     }
                 </div>
                 <div>
-                    <button onClick={this.goUntilWin}>GO UNTIL WIN!</button>
-                    <button onClick={this.goOnce}>GO ONCE!</button>
+                    <button className="Slot-Machine__btn" onClick={this.goUntilWin}>GO UNTIL WIN!</button>
+                    <button className="Slot-Machine__btn" onClick={this.goOnce}>GO ONCE!</button>
                 </div>
             </div>
         );
