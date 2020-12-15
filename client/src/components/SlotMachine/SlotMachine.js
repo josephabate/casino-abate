@@ -260,7 +260,7 @@ class SlotMachine extends Component {
             number = winners[i].number;
             count = winners[i].count;
             amount = bet * multiplier;
-            payouts.push({ "amount": amount, "number": number, "count": count });
+            payouts.push({ "amount": amount, "number": number, "count": count, "paid": false });
             this.setState({
                 payouts: payouts
             })

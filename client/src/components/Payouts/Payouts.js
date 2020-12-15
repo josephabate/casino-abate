@@ -3,20 +3,19 @@ import { v4 as uuidv4 } from 'uuid';
 
 class Payouts extends Component {
 
-    componentDidUpdate(){
-        this.props.pay.forEach((p)=>{
-            this.props.addWinnigns(p.amount);
-        });
-        
+    componentDidUpdate() {
+        for (let i = 0; i < this.props.pay.length; i++) {
+            if (!this.props.pay[i].paid) {
+                this.props.addWinnigns(this.props.pay[i].amount);
+            }
+        }
     }
 
     render() {
+        console.log(this.props.pay);
         return (
             <div>
                 <ul>
-                    {this.props.pay.map((p)=>{
-                        return(<li key={uuidv4()}>{`${p.number} came out ${p.count} times > $${p.amount}`}</li>)
-                    })}
                 </ul>
             </div>
         );

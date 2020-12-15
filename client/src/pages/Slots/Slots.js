@@ -51,7 +51,7 @@ class Slots extends Component {
     removeBetFromTotal = () => {
         let newUser = this.state.user;
         newUser.money -= this.state.bet;
-        this.setState({ user: newUser });
+        this.setState({ user: newUser, totalWinnings: 0 });
         updateBalanceToSession(newUser.money)
     }
 
@@ -61,12 +61,12 @@ class Slots extends Component {
         newWinnings += winnings;
 
         //remove first element from payouts to avoid crashing
-        let newPayouts;
-        if (this.state.payouts.length === 1) {
-            newPayouts = [];
-        }
-        else if (this.state.payouts.length >= 2) {
-            newPayouts = this.state.payouts.shift();
+        let newPayouts = this.state.payouts;
+        for(let i = 0; i < newPayouts.length; i++){
+            if(!newPayouts[i].paid){
+                newPayouts[i].paid = true;
+                break;
+            }
         }
 
 
@@ -84,6 +84,15 @@ class Slots extends Component {
         updateBalanceToSession(newUser.money)
     }
 
+    componentDidUpdate(){
+        let pay = this.state.payouts;
+        for (let i = 0; i < pay.length; i++) {
+            if (!pay[i].paid) {
+                this.addWinningsToUsersAccount(pay[i].amount);
+            }
+        }
+    }
+
     render() {
         return (
             <div className="Slots">
@@ -91,9 +100,8 @@ class Slots extends Component {
                     <div className="Slots__winnings-wrapper">
                         <h2 className="Slots__winnings">TOTAL WINNINGS: {` $${this.state.totalWinnings}`}</h2>
                     </div>
-                    <SlotMachine bet={this.state.bet} onPayOuts={this.setPayOut} onPlaySpin={this.removeBetFromTotal} />
+                    <SlotMachine bet={this.state.bet} onPayOuts={this.setPayOut} onPlaySpin={this.removeBetFromTotal}  />
                 </div>
-                <Payouts pay={this.state.payouts} addWinnigns={this.addWinningsToUsersAccount} />
                 <SlotBets onBet={this.onUpdateBet} />
                 <PlayerDashBoard onUpdateUserBalance={this.addFunds} username={this.state.user.username} money={this.state.user.money} />
             </div>
