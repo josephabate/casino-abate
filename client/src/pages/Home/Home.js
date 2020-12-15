@@ -21,20 +21,22 @@ class Home extends Component {
     render() {
         return (
             <section className="home">
-                <h1>CASINO GAMES</h1>
-                <h2>Welcome Back {this.state.username}</h2>
-                <h3>Your Money: ${this.state.money}</h3>
+                <h1 className="home__title">CASINO GAMES</h1>
+                <div className="home__wrapper">
+                    <h2 className="home__user">Welcome Back {this.state.username}</h2>
+                    <h2 className="home__money">Your Money: ${this.state.money}</h2>
+                </div>
                 <div>
-                    <div className="gameWrapper">
+                    <div className="home__gameWrapper">
                         <GamePicker game="WAR" />
                         <GamePicker game="BLACKJACK" />
                     </div>
-                    <div className="gameWrapper">
+                    <div className="home__gameWrapper">
                         <GamePicker game="ROULETTE" />
                         <GamePicker game="SLOTS" />
                     </div>
                 </div>
-                
+
             </section>
         );
     }
