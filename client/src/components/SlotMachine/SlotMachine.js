@@ -27,7 +27,9 @@ class SlotMachine extends Component {
         },
         winners: [],
         payouts: [],
-        winner: false
+        winner: false,
+        canSpin: true,
+        getOutOfUntilWin: false
     }
 
     //Generates slot number
@@ -72,8 +74,14 @@ class SlotMachine extends Component {
 
     //makes new slot render
     goOnce = () => {
-        this.props.onPlaySpin();
-        this.runRound();
+        console.log(this.state.canSpin)
+        if (this.state.canSpin && this.props.playerMoney > 0) {
+            this.props.onPlaySpin();
+            this.runRound();
+            this.setState({
+                canSpin: false
+            });
+        }
     }
 
     runRound = () => {
@@ -91,21 +99,35 @@ class SlotMachine extends Component {
         } else {
             this.checkForWinner();
             this.setState({
-                interval: 0
+                interval: 0,
+                canSpin: true
             });
         }
     }
 
     goUntilWin = () => {
-        this.setState({ winner: false, payouts: [], interval: 0 }, this.setNewSlot);
+        this.setState({
+            getOutOfUntilWin: false
+        })
+        if (!this.state.canSpin) {
+            this.setState({
+                getOutOfUntilWin: true
+            })
+        }
+        if (this.state.canSpin && this.props.playerMoney > 0) {
+            this.setState({ winner: false, payouts: [], interval: 0, canSpin: false }, this.setNewSlot);
+        }
     }
 
     //makes new slot render
     setNewSlot = () => {
-        if(this.state.interval === 1){
+        if (this.state.interval === 1) {
             this.props.onPlaySpin();
         }
-        if (this.props.bet === 0 || this.state.winner) {
+        if (this.props.bet === 0 || this.state.winner || this.state.getOutOfUntilWin) {
+            this.setState({
+                canSpin: true
+            })
             return;
         }
 
@@ -134,7 +156,7 @@ class SlotMachine extends Component {
     findWinners = (icons) => {
         const newWinners = [];
         for (let i = 0; i < 11; i++) {
-            if (icons[i] >= 6) {
+            if ((icons[i] >= 6 && i > 6) || (icons[i] >= 7 && i === 6) || (icons[i] >= 8)) {
                 newWinners.push({ "number": i, "count": icons[i] });
             }
         }
@@ -181,7 +203,7 @@ class SlotMachine extends Component {
                 if (winners[i].count >= 12) {
                     multiplier = 15;
                 }
-                if (winners[i].count >= 6) {
+                if (winners[i].count >= 7) {
                     multiplier = 5;
                 }
             }
@@ -195,7 +217,7 @@ class SlotMachine extends Component {
                 if (winners[i].count >= 12) {
                     multiplier = 120;
                 }
-                if (winners[i].count >= 6) {
+                if (winners[i].count >= 7) {
                     multiplier = 100;
                 }
             }
@@ -289,9 +311,6 @@ class SlotMachine extends Component {
                 icons[slot[i][x].number]++;
             }
         }
-        /* this.setState({
-             iconCounter: icons
-         });*/
         return icons;
     }
 
