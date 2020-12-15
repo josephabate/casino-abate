@@ -127,7 +127,8 @@ class SlotMachine extends Component {
         }
         if (this.props.bet === 0 || this.state.getOutOfUntilWin) {
             this.setState({
-                canSpin: true
+                canSpin: true,
+                getOutOfUntilWin: true 
             })
             return;
         }
@@ -147,7 +148,10 @@ class SlotMachine extends Component {
                     this.setState({
                         winner: false, payouts: []
                     })
-                    this.setNewSlot()
+                    if(this.props.playerMoney > 0){
+                        this.setNewSlot()
+                    }
+                    
                 }, 1000)
             });
         }
