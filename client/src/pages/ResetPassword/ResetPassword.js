@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 
+import './ResetPassword.scss';
+
 class ResetPassword extends Component {
     state = {
         password: "",
@@ -45,15 +47,15 @@ class ResetPassword extends Component {
 
     render() {
         return (
-            <div>
+            <div className="ResetPassword">
                 <h1>Reset password</h1>
                 <h4>{this.state.errorMessage}</h4>
-                <form onSubmit={this.onSubmit}>
-                    <label>Password</label>
-                    <input value={this.state.password} onChange={this.onChangePassword} type="password" name="password" />
-                    <label>Re-enter Password</label>
-                    <input value={this.state.rePassword} onChange={this.onChangeRepassword} type="password" name="re-password" />
-                    <button type="submit">RESET PASSWORD</button>
+                <form className="ResetPassword__form" onSubmit={this.onSubmit}>
+                    <label className="ResetPassword__label">Password</label>
+                    <input className="ResetPassword__input" value={this.state.password} onChange={this.onChangePassword} type="password" name="password" />
+                    <label className="ResetPassword__label">Re-enter Password</label>
+                    <input className="ResetPassword__input" value={this.state.rePassword} onChange={this.onChangeRepassword} type="password" name="re-password" />
+                    <button className="ResetPassword__btn" type="submit">RESET PASSWORD</button>
                 </form>
             </div>
         );
