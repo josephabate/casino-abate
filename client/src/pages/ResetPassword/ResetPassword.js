@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 
 class ResetPassword extends Component {
-    state={
+    state = {
         password: "",
-        rePassword: ""
+        rePassword: "",
+        errorMessage: ""
     }
 
     onChangePassword = (e) => {
@@ -20,34 +22,42 @@ class ResetPassword extends Component {
     }
 
 
-    onSubmit = (e) =>{
+    onSubmit = (e) => {
         e.preventDefault();
-        axios.post("/forget-password", {email: this.state.email})
-        .then((data)=>{
-            console.log(data)
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
+        if (this.state.password === this.state.rePassword) {
+
+            axios.post("/reset-password", { newPassword: this.state.password, id: this.props.match.params.id })
+                .then((data) => {
+                    console.log(data)
+                    this.props.history.push(`/registration`);
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        } else {
+            this.setState({
+                errorMessage: "Passwords don't match"
+            })
+        }
     }
 
 
-    
+
     render() {
-        console.log(this.props.match.params.id);
         return (
             <div>
                 <h1>Reset password</h1>
-                <fomr>
+                <h4>{this.state.errorMessage}</h4>
+                <form onSubmit={this.onSubmit}>
                     <label>Password</label>
-                    <input value={this.state.password}  onChange={this.onChangePassword} type="password" name="password" />
+                    <input value={this.state.password} onChange={this.onChangePassword} type="password" name="password" />
                     <label>Re-enter Password</label>
-                    <input value={this.state.rePassword}  onChange={this.onChangeRepassword} type="password" name="re-password" />
+                    <input value={this.state.rePassword} onChange={this.onChangeRepassword} type="password" name="re-password" />
                     <button type="submit">RESET PASSWORD</button>
-                </fomr>
+                </form>
             </div>
         );
     }
 }
 
-export default ResetPassword;
+export default withRouter(ResetPassword);

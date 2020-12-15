@@ -178,6 +178,21 @@ function sendEmail(emailFind) {
   })
 }
 
+
+app.post("/reset-password", async (req, res) =>{
+  const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+  User.updateOne({ '_id': req.body.id },
+  { password: hashedPassword }, function (err, docs) {
+    if (err) {
+      res.status(406).send(docs)
+    }
+    else {
+      res.status(200).send(docs)
+    }
+  });
+})
+
+//Helpers 
 function email(userId, emailFind) {
   const emailPassword = process.env.EMAILPASSWORD;
   const sendLink = process.env.SENDLINK;
@@ -214,7 +229,7 @@ function email(userId, emailFind) {
   })
 }
 
-//Helpers 
+
 function onHttpStart() {
   console.log("Express http server listening on: " + HTTP_PORT);
 }
