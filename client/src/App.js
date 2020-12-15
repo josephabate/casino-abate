@@ -8,7 +8,7 @@ import BlackJack from './pages/BlackJack/BlackJack';
 import Slots from './pages/Slots/Slots';
 import ForgetPassword from './pages/ForgetPassword/ForgetPassword';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
-import backgroundMusic from './assets/music/CasinoAbateNoise.mp3';
+import backgroundMusic from './assets/music/CasinoAbateCasinoBackgroundNoise.mp3';
 import {Howl, Howler} from 'howler';
 
 import './App.css';
