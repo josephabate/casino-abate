@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const ObjectId = require('mongodb').ObjectID;
 const mongoose = require('mongoose');
 const path = require('path');
+const nodemailer = require('nodemailer');
 const stripe = require("stripe")("sk_test_51HyNSwFH0EgpdBvsvaP4ax2S1j0OHQ6sUV1E8KTr2RYh3rYhnWdgNOcaHVZGEUWPEyqWXTXrHIWhOOxKCwbSsMLh00pXZ4tJEw");
 require("dotenv").config();
 
@@ -50,8 +51,8 @@ require('./passportConfig')(passport);
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, '../client/build')));
-// Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
+  // Handle React routing, return all requests to React app
+  app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
   });
 }
@@ -155,15 +156,61 @@ app.post("/checkout", async (req, res) => {
 
 app.post("/forget-password", (req, res) => {
   sendEmail(req.body.email)
-  .then((data)=>{
-  })
-  .catch((err)=>{
-  })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 });
 
-function sendEmail(email){
-  return new Promise((resolve, reject)=>{
+function sendEmail(emailFind) {
+  return new Promise((resolve, reject) => {
+    let userId = ""
 
+    User.findOne({ email: emailFind }, (err, user) => {
+      if (err) throw err;
+      else if (!user) return done(null, false);
+      else {
+        email(user._id, emailFind);
+      }
+    })
+  })
+}
+
+function email(userId, emailFind) {
+  const emailPassword = process.env.EMAILPASSWORD;
+  const sendLink = process.env.SENDLINK;
+  const output = `<h1>CLICK THE LINK TO RESET PASSWORD</h1> <a href="${sendLink}/reset-password/${userId}">click me to reset password</a>`
+
+  const transporter = nodemailer.createTransport({
+    host: 'pop3.live.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: 'joseph_abate_@hotmail.com',
+      pass: emailPassword
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  });
+
+  const mailOptions = {
+    from: '"Casino Abate" <joseph_abate_@hotmail.com',
+    to: emailFind,
+    subject: "Casno Abate - Reset Email",
+    text: '',
+    html: output
+  }
+
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      reject(err);
+    } else {
+      console.log(nodemailer.getTestMessageUrl(info));
+      resolve(info);
+    }
   })
 }
 
