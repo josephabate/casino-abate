@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import './App.css';
 import Home from "./pages/Home/Home";
 import Registration from "./pages/Registration/Registration";
 import War from './pages/War/War';
@@ -9,16 +8,32 @@ import BlackJack from './pages/BlackJack/BlackJack';
 import Slots from './pages/Slots/Slots';
 import ForgetPassword from './pages/ForgetPassword/ForgetPassword';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
+import backgroundMusic from './assets/music/CasinoAbateNoise.mp3';
+import {Howl, Howler} from 'howler';
+
+import './App.css';
+
 
 class App extends Component {
 
-    ifAuth(Component){
-      return !!sessionStorage.getItem("user") ? <Component/> : <Registration/>
-    }
+  ifAuth(Component) {
+    return !!sessionStorage.getItem("user") ? <Component /> : <Registration />
+  }
+
+  play = () =>{
+    console.log("Play")
+    const sounds = [backgroundMusic]
+    const sound = new Howl({
+      src: sounds
+    });
+    sound.play();
+  }
 
   render() {
+    Howler.volume(1.0);
     return (
       <div className="App">
+        {this.play()}
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />
@@ -40,6 +55,6 @@ export default App;
 
 /**
  *             <PrivateRoute path="/registration" component={Registration} redirectTo="/"/>
-              
+
             <PrivateRoute path="/war" component={War} redirectTo="/registration" />
  */

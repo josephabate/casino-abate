@@ -7,6 +7,9 @@
   height: 40vmin;
   pointer-events: none;
 }
+.App__song{
+  display: none;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
