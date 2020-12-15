@@ -15,7 +15,7 @@ class AddFunds extends Component {
 
     handleToken = (token) => {
         const amount = parseInt(this.state.product);
-        axios.post(`${API_URL}/checkout`, { token, amount })
+        axios.post(`/checkout`, { token, amount })
             .then((data) => {
                 this.props.onAddMoney(amount)
             })

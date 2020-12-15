@@ -54,7 +54,7 @@ class SignUp extends Component {
       varified: false
     };
 
-    axios.post(`${API_URL}/register`, newUser)
+    axios.post(`/register`, newUser)
       .then((resp) => {
         this.setState({
           email: "",

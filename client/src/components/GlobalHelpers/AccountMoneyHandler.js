@@ -14,7 +14,7 @@ export const updateBalanceToSession = (money) => {
     axios({
         method: "PUT",
         withCredentials: true,
-        url: `${API_URL}/user/money`,
+        url: `/user/money`,
         data: user
     }).then((res) => {
     })

@@ -12,7 +12,7 @@ const PlayerDashBoard = (props) => {
         axios({
             method: "GET",
             withCredentials: true,
-            url: `${API_URL}/logout`
+            url: `/logout`
         })
             .then((data) => {
                 console.log(data)
