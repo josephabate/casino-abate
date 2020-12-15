@@ -7,6 +7,7 @@ import './Slots.scss';
 
 //helpers
 import { updateBalanceToSession } from '../../components/GlobalHelpers/AccountMoneyHandler';
+import SlotsRules from '../../components/SlotsRules/SlotsRules';
 
 
 class Slots extends Component {
@@ -60,8 +61,8 @@ class Slots extends Component {
 
         //remove first element from payouts to avoid crashing
         let newPayouts = this.state.payouts;
-        for(let i = 0; i < newPayouts.length; i++){
-            if(!newPayouts[i].paid){
+        for (let i = 0; i < newPayouts.length; i++) {
+            if (!newPayouts[i].paid) {
                 newPayouts[i].paid = true;
                 break;
             }
@@ -75,14 +76,14 @@ class Slots extends Component {
         updateBalanceToSession(newUser.money)
     }
 
-    addFunds = (funds)=>{
+    addFunds = (funds) => {
         let newUser = this.state.user;
         newUser.money += funds;
         this.setState({ user: newUser });
         updateBalanceToSession(newUser.money)
     }
 
-    async componentDidUpdate(){
+    async componentDidUpdate() {
         let pay = this.state.payouts;
         for (let i = 0; i < pay.length; i++) {
             if (!pay[i].paid) {
@@ -98,7 +99,10 @@ class Slots extends Component {
                     <div className="Slots__winnings-wrapper">
                         <h2 className="Slots__winnings">TOTAL WINNINGS: {` $${this.state.totalWinnings}`}</h2>
                     </div>
-                    <SlotMachine bet={this.state.bet} onPayOuts={this.setPayOut} onPlaySpin={this.removeBetFromTotal} playerMoney={this.state.user.money} />
+                    <div className="Slots__game-wrapper"> 
+                        <SlotsRules />
+                        <SlotMachine bet={this.state.bet} onPayOuts={this.setPayOut} onPlaySpin={this.removeBetFromTotal} playerMoney={this.state.user.money} />
+                    </div>
                 </div>
                 <SlotBets onBet={this.onUpdateBet} />
                 <PlayerDashBoard onUpdateUserBalance={this.addFunds} username={this.state.user.username} money={this.state.user.money} />

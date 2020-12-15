@@ -176,20 +176,6 @@ class SlotMachine extends Component {
         }
     }
 
-    /** 6           12           18           24
-* 1 (120 <)    5           15          25          50
-* to 
-* 6 (720 <)    5           15          25          50
-* 
-* 7 (805 <)    100.0       120.0       135.0       150.0
-* 8 (865 <)    125.0       150.0       175.0       200.0
-* 9 (915 <)    150.0       200.0       350.0       400.0
-* 10 (955 <)   250.0       300.0       500.0       800.0
-* 11 ( <)   500.0       700.0       800.0       1000.0
-* 
-* 0 - 1000
-* 
-*/
     givePayOuts = () => {
         const winners = this.state.winners;
         const bet = this.props.bet;
@@ -206,13 +192,13 @@ class SlotMachine extends Component {
                     multiplier = 6;
                 }
                 else if (winners[i].count >= 9) {
-                    multiplier = 4;
+                    multiplier = 5;
                 }
                 else if (winners[i].count >= 8) {
-                    multiplier = 3;
+                    multiplier = 4;
                 }
                 else if (winners[i].count >= 7) {
-                    multiplier = 2;
+                    multiplier = 3;
                 }
             }
             else if (winners[i].number === 6) {

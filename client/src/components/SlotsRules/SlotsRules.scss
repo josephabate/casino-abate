@@ -1,0 +1,10 @@
+@import '../../partials/variables';
+@import '../../partials/mixins';
+
+.SlotsRules{
+    height: 512px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

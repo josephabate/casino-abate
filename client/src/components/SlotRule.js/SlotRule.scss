@@ -1,0 +1,14 @@
+.SlotRule{
+    display: flex;
+    align-items: center;
+    &__qty{
+        margin: 0;
+    }
+    &__mult{
+        margin: 0 0 0 1rem;
+    }
+    &__icon{
+        width: 40px;
+        margin-left: 0;
+    }
+}
