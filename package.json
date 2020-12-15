@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "concurrently \"cd server && npm test\" \"cd client && npm start",
-    "start": "cd server && npm start",
+    "start": "cd server && npm i && npm start",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "author": "",
