@@ -10,11 +10,13 @@ class Registration extends Component {
     render() {
         return (
             <div className="Registration">
-                <div>
-                    <SignIn />
-                    <Link className="Registration__forget" to="/forget-password">Forget Password</Link>
+                <div className="Registration__wrapper">
+                    <div>
+                        <SignIn />
+                        <Link className="Registration__forget" to="/forget-password">Forget Password</Link>
+                    </div>
+                    <SignUp />
                 </div>
-                <SignUp />
             </div>
         );
     }

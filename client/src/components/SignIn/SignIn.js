@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 
+import './SignIn.scss';
+
 class SignIn extends Component {
     state = {
         email: "",
@@ -44,19 +46,19 @@ class SignIn extends Component {
 
     render() {
         return (
-            <div>
-                <h2>Sign IN</h2>
+            <div className="SignIn">
+                <h2 className="SignIn__title">Sign In</h2>
                 <form onSubmit={this.onFormSubmit}>
-                    <div>
-                        <label htmlFor="email">Email</label>
-                        <input required type="email" name="username" value={this.state.email} onChange={this.onChangeEmail} />
+                    <div className="SignIn__input-wrapper">
+                        <label className="SignIn__label" htmlFor="email">Email</label>
+                        <input className="SignIn__input" required type="email" name="username" value={this.state.email} onChange={this.onChangeEmail} />
+                    </div>
+                    <div className="SignIn__input-wrapper">
+                        <label className="SignIn__label" htmlFor="password">Password</label>
+                        <input className="SignIn__input" required type="password" name="password" value={this.state.password} onChange={this.onChangePassword} />
                     </div>
                     <div>
-                        <label htmlFor="password">Password</label>
-                        <input required type="password" name="password" value={this.state.password} onChange={this.onChangePassword} />
-                    </div>
-                    <div>
-                        <button type="submit">LOG IN</button>
+                        <button className="SignIn__btn" type="submit">LOG IN</button>
                     </div>
                 </form>
             </div>
