@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import './SignUp.scss';
+
 class SignUp extends Component {
   state = {
     email: "",
@@ -76,13 +78,14 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div>
-        <h2>CREATE ACCOUNT</h2>
+      <div className="SignUp">
+        <h2 className="SignUp__title">CREATE ACCOUNT</h2>
         <form onSubmit={this.onFormSubmit}>
           <p>{this.state.errorCode}</p>
-          <div>
-            <label htmlFor="email">EMAIL</label>
+          <div className="SignUp__input-wrapper">
+            <label className="SignUp__label" htmlFor="email">EMAIL</label>
             <input
+            className="SignUp__input"
               type="email"
               name="email"
               required
@@ -90,9 +93,10 @@ class SignUp extends Component {
               onChange={this.onChangeEmail}
             />
           </div>
-          <div>
-            <label htmlFor="username">USERNAME</label>
+          <div className="SignUp__input-wrapper">
+            <label className="SignUp__label" htmlFor="username">USERNAME</label>
             <input
+            className="SignUp__input"
               type="text"
               name="username"
               required
@@ -100,9 +104,10 @@ class SignUp extends Component {
               onChange={this.onChangeUsername}
             />
           </div>
-          <div data-tip="This is the text of the tooltip2">
-            <label htmlFor="password">PASSWORD</label>
+          <div className="SignUp__input-wrapper">
+            <label className="SignUp__label" htmlFor="password">PASSWORD</label>
             <input
+            className="SignUp__input"
               type="password"
               name="password"
               required
@@ -110,9 +115,10 @@ class SignUp extends Component {
               onChange={this.onChangePassword}
             />
           </div>
-          <div>
-            <label htmlFor="rePassword">RE-PASSWORD</label>
+          <div className="SignUp__input-wrapper">
+            <label className="SignUp__label" htmlFor="rePassword">RE-PASSWORD</label>
             <input
+            className="SignUp__input"
               type="password"
               name="rePassword"
               required
@@ -121,7 +127,7 @@ class SignUp extends Component {
             />
           </div>
 
-          <button type="submit">SIGN UP NOW</button>
+          <button type="submit" className="SignUp__btn">SIGN UP NOW</button>
         </form>
       </div>
     );
