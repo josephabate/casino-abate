@@ -47,6 +47,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./passportConfig')(passport);
 
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, '../client/build')));
+// Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+}
+
 /* --- Routes --- */
 app.post("/register", (req, res) => {
   User.findOne({ email: req.body.email }, async (err, doc) => {
@@ -144,15 +153,19 @@ app.post("/checkout", async (req, res) => {
   }
 })
 
-if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
-  app.use(express.static(path.join(__dirname, '../client/build')));
-// Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-  });
-}
+app.post("/forget-password", (req, res) => {
+  sendEmail(req.body.email)
+  .then((data)=>{
+  })
+  .catch((err)=>{
+  })
+});
 
+function sendEmail(email){
+  return new Promise((resolve, reject)=>{
+
+  })
+}
 
 //Helpers 
 function onHttpStart() {

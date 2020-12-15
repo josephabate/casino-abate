@@ -15,6 +15,13 @@ class ForgetPassword extends Component {
 
     onSubmit = (e) =>{
         e.preventDefault();
+        axios.post("/forget-password", {email: this.state.email})
+        .then((data)=>{
+            console.log(data)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
     }
 
     render() {

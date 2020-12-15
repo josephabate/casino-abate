@@ -1,6 +1,5 @@
 import React from 'react';
 import './SlotsRules.scss';
-import icons from '../GlobalHelpers/SlotImages';
 import SlotRule from '../SlotRule.js/SlotRule';
 
 const SlotsRules = () => {
