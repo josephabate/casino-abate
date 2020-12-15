@@ -7,6 +7,7 @@ import War from './pages/War/War';
 import Roulette from './pages/Roulette/Roulette';
 import BlackJack from './pages/BlackJack/BlackJack';
 import Slots from './pages/Slots/Slots';
+import ForgetPassword from './pages/ForgetPassword/ForgetPassword';
 
 class App extends Component {
 
@@ -25,6 +26,7 @@ class App extends Component {
             <Route exact path="/roulette" component={Roulette} />
             <Route exact path="/blackjack" component={BlackJack} />
             <Route exact path="/Slots" component={Slots} />
+            <Route exact path="/forget-password" component={ForgetPassword} />
           </Switch>
         </BrowserRouter>
       </div>
