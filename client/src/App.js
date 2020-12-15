@@ -33,7 +33,7 @@ class App extends Component {
     Howler.volume(.4);
     return (
       <div className="App">
-        {/*this.play()*/}
+        {this.play()}
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />
