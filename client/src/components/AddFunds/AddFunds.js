@@ -4,9 +4,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import './AddFunds.scss';
 
-const API_URL = process.env.REACT_APP_API_URL;
 const API_PK_KEY = process.env.REACT_APP_PK_KEY;
-const stripePromise = loadStripe(`${API_PK_KEY}`);
+loadStripe(`${API_PK_KEY}`);
 
 class AddFunds extends Component {
     state = {

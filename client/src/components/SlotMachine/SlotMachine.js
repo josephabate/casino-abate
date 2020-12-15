@@ -29,7 +29,7 @@ class SlotMachine extends Component {
         payouts: [],
         winner: false,
         canSpin: true,
-        getOutOfUntilWin: false
+        getOutOfUntilWin: true
     }
 
     //Generates slot number
@@ -41,10 +41,10 @@ class SlotMachine extends Component {
         else if (number <= 480) { number = 3; }
         else if (number <= 600) { number = 4; }
         else if (number <= 720) { number = 5; }
-        else if (number <= 805) { number = 6; }
-        else if (number <= 865) { number = 7; }
-        else if (number <= 915) { number = 8; }
-        else if (number <= 955) { number = 9; }
+        else if (number <= 800) { number = 6; }
+        else if (number <= 860) { number = 7; }
+        else if (number <= 920) { number = 8; }
+        else if (number <= 960) { number = 9; }
         else { number = 10; }
 
         let isWinner = false
@@ -74,8 +74,7 @@ class SlotMachine extends Component {
 
     //makes new slot render
     goOnce = () => {
-        console.log(this.state.canSpin)
-        if (this.state.canSpin && this.props.playerMoney > 0) {
+        if (this.state.canSpin && this.props.playerMoney > 0 && this.props.bet > 0) {
             this.props.onPlaySpin();
             this.runRound();
             this.setState({
@@ -106,16 +105,18 @@ class SlotMachine extends Component {
     }
 
     goUntilWin = () => {
-        this.setState({
-            getOutOfUntilWin: false
-        })
-        if (!this.state.canSpin) {
+        if (this.props.bet > 0) {
             this.setState({
-                getOutOfUntilWin: true
+                getOutOfUntilWin: false
             })
-        }
-        if (this.state.canSpin && this.props.playerMoney > 0) {
-            this.setState({ winner: false, payouts: [], interval: 0, canSpin: false }, this.setNewSlot);
+            if (!this.state.canSpin) {
+                this.setState({
+                    getOutOfUntilWin: true
+                })
+            }
+            if (this.state.canSpin && this.props.playerMoney > 0) {
+                this.setState({ winner: false, payouts: [], interval: 0, canSpin: false }, this.setNewSlot);
+            }
         }
     }
 
@@ -124,7 +125,7 @@ class SlotMachine extends Component {
         if (this.state.interval === 1) {
             this.props.onPlaySpin();
         }
-        if (this.props.bet === 0 || this.state.winner || this.state.getOutOfUntilWin) {
+        if (this.props.bet === 0 || this.state.getOutOfUntilWin) {
             this.setState({
                 canSpin: true
             })
@@ -143,6 +144,9 @@ class SlotMachine extends Component {
                 interval: 0
             }, () => {
                 setTimeout(() => {
+                    this.setState({
+                        winner: false, payouts: []
+                    })
                     this.setNewSlot()
                 }, 1000)
             });
@@ -156,7 +160,7 @@ class SlotMachine extends Component {
     findWinners = (icons) => {
         const newWinners = [];
         for (let i = 0; i < 11; i++) {
-            if ((icons[i] >= 6 && i > 6) || (icons[i] >= 7 && i === 6) || (icons[i] >= 8)) {
+            if ((icons[i] >= 5 && i > 6) || (icons[i] >= 6 && i === 6) || (icons[i] >= 7)) {
                 newWinners.push({ "number": i, "count": icons[i] });
             }
         }
@@ -194,87 +198,87 @@ class SlotMachine extends Component {
 
         for (let i = 0; i < winners.length; i++) {
             if (winners[i].number <= 5) {
-                if (winners[i].count >= 24) {
-                    multiplier = 50;
+                if (winners[i].count >= 10) {
+                    multiplier = 6;
                 }
-                if (winners[i].count >= 18) {
-                    multiplier = 25;
+                else if (winners[i].count >= 9) {
+                    multiplier = 4;
                 }
-                if (winners[i].count >= 12) {
-                    multiplier = 15;
+                else if (winners[i].count >= 8) {
+                    multiplier = 3;
                 }
-                if (winners[i].count >= 7) {
-                    multiplier = 5;
+                else if (winners[i].count >= 7) {
+                    multiplier = 2;
                 }
             }
             else if (winners[i].number === 6) {
-                if (winners[i].count >= 24) {
-                    multiplier = 150;
+                if (winners[i].count >= 10) {
+                    multiplier = 15;
                 }
-                if (winners[i].count >= 18) {
-                    multiplier = 135;
+                else if (winners[i].count >= 8) {
+                    multiplier = 10;
                 }
-                if (winners[i].count >= 12) {
-                    multiplier = 120;
+                else if (winners[i].count >= 7) {
+                    multiplier = 8;
                 }
-                if (winners[i].count >= 7) {
-                    multiplier = 100;
+                else if (winners[i].count >= 6) {
+                    multiplier = 5;
                 }
             }
             else if (winners[i].number === 7) {
-                if (winners[i].count >= 24) {
-                    multiplier = 200;
+                if (winners[i].count >= 8) {
+                    multiplier = 20;
                 }
-                if (winners[i].count >= 18) {
-                    multiplier = 175;
+                else if (winners[i].count >= 7) {
+                    multiplier = 15;
                 }
-                if (winners[i].count >= 12) {
-                    multiplier = 150;
+                else if (winners[i].count >= 6) {
+                    multiplier = 10;
                 }
-                if (winners[i].count >= 6) {
-                    multiplier = 125;
+                else if (winners[i].count >= 5) {
+                    multiplier = 8;
                 }
             }
             else if (winners[i].number === 8) {
-                if (winners[i].count >= 24) {
-                    multiplier = 400;
+                if (winners[i].count >= 8) {
+                    multiplier = 40;
                 }
-                if (winners[i].count >= 18) {
-                    multiplier = 350;
+                else if (winners[i].count >= 7) {
+                    multiplier = 25;
                 }
-                if (winners[i].count >= 12) {
-                    multiplier = 200;
+                else if (winners[i].count >= 6) {
+                    multiplier = 15;
                 }
-                if (winners[i].count >= 6) {
-                    multiplier = 150;
+                else if (winners[i].count >= 5) {
+                    multiplier = 10;
                 }
             }
             if (winners[i].number === 9) {
-                if (winners[i].count >= 24) {
-                    multiplier = 800;
+                if (winners[i].count >= 8) {
+                    multiplier = 80;
                 }
-                if (winners[i].count >= 18) {
-                    multiplier = 500;
+                else if (winners[i].count >= 7) {
+                    multiplier = 50;
                 }
-                if (winners[i].count >= 12) {
-                    multiplier = 300;
+                else if (winners[i].count >= 6) {
+                    multiplier = 25;
                 }
-                if (winners[i].count >= 6) {
-                    multiplier = 250;
+                else if (winners[i].count >= 5) {
+                    multiplier = 15;
                 }
             }
             else if (winners[i].number === 10) {
-                if (winners[i].count >= 24) {
-                    multiplier = 1000;
+                if (winners[i].count >= 8) {
+                    multiplier = 100;
                 }
-                if (winners[i].count >= 18) {
-                    multiplier = 800;
+                else if (winners[i].count >= 7) {
+                    multiplier = 70;
                 }
-                if (winners[i].count >= 12) {
-                    multiplier = 700;
+                else if (winners[i].count >= 6) {
+                    multiplier = 40;
                 }
-                if (winners[i].count >= 6) {
-                    multiplier = 500;
+                else if (winners[i].count >= 5) {
+                    multiplier = 20;
                 }
             }
 
@@ -339,7 +343,7 @@ class SlotMachine extends Component {
                     }
                 </div>
                 <div>
-                    <button className="Slot-Machine__btn" onClick={this.goUntilWin}>GO UNTIL WIN!</button>
+                    <button className="Slot-Machine__btn" onClick={this.goUntilWin}>{(this.state.getOutOfUntilWin) ? "AUTO PLAY!" : "STOP!"}</button>
                     <button className="Slot-Machine__btn" onClick={this.goOnce}>GO ONCE!</button>
                 </div>
             </div>

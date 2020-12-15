@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_API_URL;
-
 class SignIn extends Component {
     state = {
         email: "",
@@ -30,7 +28,7 @@ class SignIn extends Component {
         axios({
             method: "POST",
             withCredentials: true,
-            url: "/login",//`${API_URL}/login`,
+            url: "/login",
             data: user
         }).then((res) => {
             sessionStorage.setItem("user", JSON.stringify(res.data))

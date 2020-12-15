@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_API_URL;
-
 class SignUp extends Component {
   state = {
     email: "",

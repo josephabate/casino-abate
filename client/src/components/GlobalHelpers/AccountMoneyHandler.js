@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL;
-
 //writes to local storage
 export const updateBalanceToSession = (money) => {
     //rewrite to session storage

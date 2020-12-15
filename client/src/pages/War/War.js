@@ -99,7 +99,7 @@ class War extends Component {
         let endGame = ""
         if (playerPower > dealerPower) {
             betAmount *= 2;
-            endGame = `YOU IN $${betAmount}`;
+            endGame = `YOU WIN $${betAmount}`;
         } else if (playerPower === dealerPower) {
             endGame = `WAR - TIE`;
         } else {

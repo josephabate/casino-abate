@@ -4,7 +4,6 @@ import { withRouter } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import AddFunds from '../AddFunds/AddFunds';
-const API_URL = process.env.REACT_APP_API_URL;
 
 const PlayerDashBoard = (props) => {
 

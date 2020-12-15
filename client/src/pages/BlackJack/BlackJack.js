@@ -135,7 +135,7 @@ class BlackJack extends Component {
     }
 
     dealerPlay = () => {
-        if (this.state.dealer.power >= 16) {
+        if (this.state.dealer.power >= 17) {
             this.whoWins();
             return;
         }
@@ -196,12 +196,12 @@ class BlackJack extends Component {
             bet = 0;
         }
         else if (this.state.dealer.bust) {
-            message = `YOU WIN + $${bet}`
             bet = bet * 2;
+            message = `YOU WIN + $${bet}`
         }
         else if (this.state.player.power > this.state.dealer.power) {
-            message = `YOU WIN + $${bet}`
             bet = bet * 2;
+            message = `YOU WIN + $${bet}`
         }
         else if (this.state.player.power === this.state.dealer.power) {
             message = "YOU LOSE"
