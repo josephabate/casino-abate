@@ -8,6 +8,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const ObjectId = require('mongodb').ObjectID;
 const mongoose = require('mongoose');
+const path = require('path');
 const stripe = require("stripe")("sk_test_51HyNSwFH0EgpdBvsvaP4ax2S1j0OHQ6sUV1E8KTr2RYh3rYhnWdgNOcaHVZGEUWPEyqWXTXrHIWhOOxKCwbSsMLh00pXZ4tJEw");
 require("dotenv").config();
 
