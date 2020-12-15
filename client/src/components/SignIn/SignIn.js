@@ -30,7 +30,7 @@ class SignIn extends Component {
         axios({
             method: "POST",
             withCredentials: true,
-            url: `${API_URL}/login`,
+            url: "/login",//`${API_URL}/login`,
             data: user
         }).then((res) => {
             sessionStorage.setItem("user", JSON.stringify(res.data))
