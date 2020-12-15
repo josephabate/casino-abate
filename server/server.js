@@ -172,7 +172,7 @@ function sendEmail(emailFind) {
       if (err) throw err;
       else if (!user) return done(null, false);
       else {
-        email(user._id, emailFind);
+        email(user._id, emailFind, reject, resolve);
       }
     })
   })
@@ -193,7 +193,7 @@ app.post("/reset-password", async (req, res) =>{
 })
 
 //Helpers 
-function email(userId, emailFind) {
+function email(userId, emailFind, reject, resolve) {
   const emailPassword = process.env.EMAILPASSWORD;
   const sendLink = process.env.SENDLINK;
   const output = `<h1>CLICK THE LINK TO RESET PASSWORD</h1> <a href="${sendLink}/reset-password/${userId}">click me to reset password</a>`
