@@ -238,7 +238,7 @@ class BlackJack extends Component {
                     if (card.isAce && card.cardPower === 11) {
                         card.cardPower = 1;
                         newPlayer.power -= 10;
-                        newPlayer.bust = (newPlayer.power >= 21)
+                        newPlayer.bust = (newPlayer.power >= 22)
                         return;
                     }
                 })
