@@ -28,11 +28,11 @@ const PlayerDashBoard = (props) => {
             <div>
                 <div>
                     <h2 className="playerDashBoard__title">{props.username}'s DASHBOARD</h2>
-                    <h2>Your money: ${props.money}</h2>
+                    <h2 className="playerDashBoard__money">Your money: ${props.money}</h2>
                 </div>
-                <div>
-                    <Link to="/">Back To Home</Link>
-                    <button onClick={() => { logout() }}>Logout</button>
+                <div className="playerDashBoard__wrapper">
+                    <Link to="/" className="playerDashBoard__back">Back To Home</Link>
+                    <button className="playerDashBoard__logout" onClick={() => { logout() }}>Logout</button>
                 </div>
             </div>
             <AddFunds onAddMoney={props.onUpdateUserBalance} />

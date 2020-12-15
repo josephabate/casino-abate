@@ -5,10 +5,36 @@
     @include basicShape;
     padding: 1rem;
     width: 100%;
-    color: black;
+    color: white;
     display: flex;
     justify-content: space-evenly;
+    background-color: #2C6431;
     &__title{
         margin: 0;
+        font-weight: 600;
+    }
+    &__money{
+        margin:0;
+        font-weight: 600;
+    }
+    &__back{
+        color: black;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    &__wrapper{
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    &__logout{
+        background-color: wheat;
+        border: none;
+        width: 80px;
+        font-weight: 600;
+        border-radius: 20px;
+        &:hover{
+            cursor: pointer;
+        }
     }
 }

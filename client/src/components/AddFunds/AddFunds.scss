@@ -4,9 +4,14 @@
     justify-content: space-between;
     &__title{
         margin-top: 0;
+        font-weight: 600;
+        margin: 0;
     }
     &__input{
         padding: 5px;
+        font-size: 1rem;
         font-weight: 600;
+        border: none;
+        border-radius: 4px;
     }
 }
