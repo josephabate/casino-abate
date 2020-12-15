@@ -125,12 +125,16 @@ class BlackJack extends Component {
             bust: false
         }
 
-        this.setState({
-            player: newPlayer,
-            dealer: newDealer,
-            playing: true,
-            endGameMessage: ""
-        })
+        if (newPlayer.power === 21) {
+            this.whoWins() //automatic win on 21
+        } else {
+            this.setState({
+                player: newPlayer,
+                dealer: newDealer,
+                playing: true,
+                endGameMessage: ""
+            })
+        }
 
     }
 
@@ -191,8 +195,13 @@ class BlackJack extends Component {
         let userMoney = this.state.user;
         //set state and make a var for if you loose or win and then rest it when you start a gaem
         //it will be used for the card are and remove the "- total: #" and replace it witht win or lose 
-        if (this.state.player.bust) {
-            message = "YOU LOSE"
+        console.log(this.state.player.power + " - " + this.state.dealer.power)
+        if(this.state.player.power === 21){
+            bet = bet * 2;
+            message = `BLACK JACK \n YOU WIN + $${bet}`
+        }
+        else if (this.state.player.bust) {
+            message = "YOU LOSE 1"
             bet = 0;
         }
         else if (this.state.dealer.bust) {
@@ -204,11 +213,11 @@ class BlackJack extends Component {
             message = `YOU WIN + $${bet}`
         }
         else if (this.state.player.power === this.state.dealer.power) {
-            message = "YOU LOSE"
+            message = "YOU LOSE 2"
             bet = 0;
         }
         else {
-            message = "YOU LOSE"
+            message = "YOU LOSE 3"
             bet = 0;
         }
 
@@ -219,7 +228,8 @@ class BlackJack extends Component {
         this.setState({
             endGameMessage: message,
             currentBet: 0,
-            user: userMoney
+            user: userMoney,
+            playing: false
         });
     }
 
@@ -230,7 +240,7 @@ class BlackJack extends Component {
             let newPlayer = this.state.player;
             newPlayer.cards.push(newCard);
             newPlayer.power += newCard.cardPower;
-            newPlayer.bust = (newPlayer.power >= 21)
+            newPlayer.bust = (newPlayer.power >= 22)
 
             //if there is an ace when u bust set it to 1
             if (newPlayer.bust) {
@@ -246,17 +256,18 @@ class BlackJack extends Component {
 
             this.setState({
                 player: newPlayer
+            }, () => {
+                if (newPlayer.power === 21) {
+                    this.whoWins();
+                }
+                if (newPlayer.bust) {
+                    this.whoWins();
+                }
             })
-            if (newPlayer.bust) {
-                this.setState({
-                    playing: false
-                })
-                this.whoWins();
-            }
         }
     }
 
-    addFunds = (funds)=>{
+    addFunds = (funds) => {
         let newUser = this.state.user;
         newUser.money += funds;
         this.setState({ user: newUser });
