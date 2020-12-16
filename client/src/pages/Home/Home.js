@@ -23,8 +23,8 @@ class Home extends Component {
             <section className="home">
                 <h1 className="home__title">CASINO GAMES</h1>
                 <div className="home__wrapper">
-                    <h2 className="home__user">Welcome Back {this.state.username}</h2>
-                    <h2 className="home__money">Your Money: ${this.state.money}</h2>
+                    <h2 className="home__user">Welcome Back {this.state.username},</h2>
+                    <h2 className="home__money">You Have: ${this.state.money}</h2>
                 </div>
                 <div>
                     <div className="home__gameWrapper">
