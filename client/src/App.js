@@ -30,7 +30,7 @@ class App extends Component {
   }
 
   render() {
-    Howler.volume(.2);
+    Howler.volume(.05);
     return (
       <div className="App">
         {this.play()}
