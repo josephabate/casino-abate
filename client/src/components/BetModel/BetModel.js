@@ -92,22 +92,22 @@ class BetModel extends Component {
                     </div>
                 </div>
                 <div>
-                    <img onClick={() => {
+                    <img className="BetModel__img-chips" onClick={() => {
                         this.onBetMoney(1)
                     }} src={chip1} alt="$1 bet" />
-                    <img onClick={() => {
+                    <img className="BetModel__img-chips" onClick={() => {
                         this.onBetMoney(5)
                     }} src={chip5} alt="$5 bet" />
-                    <img onClick={() => {
+                    <img className="BetModel__img-chips" onClick={() => {
                         this.onBetMoney(10)
                     }} src={chip10} alt="$10 bet" />
-                    <img onClick={() => {
+                    <img className="BetModel__img-chips" onClick={() => {
                         this.onBetMoney(25)
                     }} src={chip25} alt="$25 bet" />
-                    <img onClick={() => {
+                    <img className="BetModel__img-chips" onClick={() => {
                         this.onBetMoney(50)
                     }} src={chip50} alt="$50 bet" />
-                    <img onClick={() => {
+                    <img className="BetModel__img-chips" onClick={() => {
                         this.onBetMoney(100)
                     }} src={chip100} alt="$100 bet" />
                 </div>
