@@ -19,4 +19,14 @@
         display: flex;
         flex-direction: column;
     }
+    &__number-btn{
+        background-color: wheat;
+        border: 2px solid black;
+        font-size: 1rem;
+        padding: .5rem 2rem;
+        border-radius: 8px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
 }

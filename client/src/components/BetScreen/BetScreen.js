@@ -46,10 +46,11 @@ function checkForWinner(betNumber, landedNumber) {
     }
 }
 
-const BetScreen = ({ allBets, wheelNumber, addWinnings }) => {
+const BetScreen = ({ allBets, wheelNumber, addWinnings, moneyWon }) => {
     return (
         <div className="BetScreen">
             <h1 className="BetScreen__title" >BETS</h1>
+            {(moneyWon)? <h2>YOU WIN: {moneyWon}</h2>:""}
             <div className="BetScreen__listWrapper">
                 {
                     allBets.map((data) => {

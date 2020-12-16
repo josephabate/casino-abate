@@ -15,7 +15,8 @@ class Roulette extends Component {
         bets: [],
         number: "",
         currentBetNumber: "",
-        canBet: true
+        canBet: true,
+        winnings: 0
     }
 
     constructor(props) {
@@ -44,11 +45,13 @@ class Roulette extends Component {
             }
         })
 
+        let newWinnigns = parseInt(this.state.winnings) + parseInt(money);
         let userData = this.state.user;
         userData.money += money;
         this.setState({
             user: { username: this.state.user.username, money: userData.money },
-            bets: bets
+            bets: bets,
+            winnings: newWinnigns
         })
 
         //rewrite to session storage - imported method
@@ -92,7 +95,8 @@ class Roulette extends Component {
             number: "",
             bets: [],
             currentBetNumber: "",
-            canBet: true
+            canBet: true,
+            winnings: 0
         })
     }
 
@@ -118,9 +122,9 @@ class Roulette extends Component {
                 <h1 className="Roulette__title">Roulette</h1>
                 <div className="Roulette__gameScreen">
                     <div className="Roulette__leftCol">
-                        {this.state.number ? <button onClick={this.resetNumber}>reset</button> : <button onClick={this.getNumber}>GET NUMBER</button>}
+                        {this.state.number ? <button className="Roulette__number-btn" onClick={this.resetNumber}>reset</button> : <button className="Roulette__number-btn" onClick={this.getNumber}>GET NUMBER</button>}
                         <RouletteWheel number={this.state.number} />
-                        <BetScreen addWinnings={this.addWinnings} allBets={this.state.bets} wheelNumber={this.state.number} />
+                        <BetScreen moneyWon={this.state.winnings} addWinnings={this.addWinnings} allBets={this.state.bets} wheelNumber={this.state.number} />
                     </div>
                     <div>
                         <RouletteTable onSetBetNumber={this.setBetNumber} />

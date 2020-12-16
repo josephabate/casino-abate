@@ -21,10 +21,10 @@ class App extends Component {
   }
 
   play = () =>{
-    console.log("Play")
     const sounds = [backgroundMusic]
     const sound = new Howl({
-      src: sounds
+      src: sounds,
+      loop: true
     });
     sound.play();
   }
