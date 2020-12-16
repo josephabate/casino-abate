@@ -181,7 +181,6 @@ function sendEmail(emailFind) {
   })
 }
 
-
 app.post("/reset-password", async (req, res) =>{
   const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
   User.updateOne({ '_id': req.body.id },
