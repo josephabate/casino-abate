@@ -193,12 +193,11 @@ class BlackJack extends Component {
         let message = ""
         let bet = this.state.currentBet;
         let userMoney = this.state.user;
-        //set state and make a var for if you loose or win and then rest it when you start a gaem
-        //it will be used for the card are and remove the "- total: #" and replace it witht win or lose 
-        console.log(this.state.player.power + " - " + this.state.dealer.power)
+        
+        //check who wins
         if(this.state.player.power === 21){
             bet = bet * 2;
-            message = `BLACK JACK \n YOU WIN + $${bet}`
+            message = `BLACK JACK! + $${bet}`
         }
         else if (this.state.player.bust) {
             message = "BUST!"
