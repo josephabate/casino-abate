@@ -166,11 +166,14 @@ app.post("/forget-password", (req, res) => {
 
 function sendEmail(emailFind) {
   return new Promise((resolve, reject) => {
-    let userId = ""
+    let userId = "";
 
     User.findOne({ email: emailFind }, (err, user) => {
       if (err) throw err;
-      else if (!user) return done(null, false);
+      else if (!user) {
+        console.log("NO USER REGISTERED BY THE EMAIL: " + emailFind);
+        return;
+      }
       else {
         email(user._id, emailFind, reject, resolve);
       }
