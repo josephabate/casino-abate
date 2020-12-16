@@ -8,6 +8,13 @@ class Home extends Component {
         money: 0
     }
 
+    constructor(props) {
+        super(props);
+        if (!!!sessionStorage.getItem("user")) {
+            this.props.history.push('/registration');
+        }
+    }
+
     componentDidMount() {
         if (!!sessionStorage.getItem("user")) {
             const user = JSON.parse(sessionStorage.getItem("user"));
