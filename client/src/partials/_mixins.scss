@@ -27,3 +27,9 @@
     border: .5rem solid black;
     border-radius: 30px;
 }
+
+@mixin wideDisplayFlex{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}

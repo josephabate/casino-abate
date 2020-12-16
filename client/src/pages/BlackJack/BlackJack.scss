@@ -18,16 +18,12 @@
         width: 400px;
     }
     &__bet-wrapper{
-        width: 100%;
-        display: flex;
+        @include wideDisplayFlex;
         justify-content: center;
-        flex-wrap: wrap;
     margin: 1rem 0;
     }
     &__playing-area{
-        display: flex;
+        @include wideDisplayFlex;
         justify-content: space-evenly;
-        width: 100%;
-        flex-wrap: wrap;
     }
 }
