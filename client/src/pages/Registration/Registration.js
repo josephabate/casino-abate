@@ -11,7 +11,7 @@ class Registration extends Component {
     render() {
         return (
             <section className="Registration">
-                <h1 className="Registration__title">Registration</h1>
+                <h1 className="Registration__title">CASINO ABATE - Registration</h1>
                 <div className="Registration__wrapper">
                     <div className="Registration__wrapper-inner">
                         <SignIn />
