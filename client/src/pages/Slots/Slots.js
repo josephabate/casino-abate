@@ -99,7 +99,7 @@ class Slots extends Component {
                     <div className="Slots__winnings-wrapper">
                         <h2 className="Slots__winnings">TOTAL WINNINGS: {` $${this.state.totalWinnings}`}</h2>
                     </div>
-                    <div className="Slots__game-wrapper"> 
+                    <div className="Slots__game-wrapper">
                         <SlotsRules />
                         <SlotMachine bet={this.state.bet} onPayOuts={this.setPayOut} onPlaySpin={this.removeBetFromTotal} playerMoney={this.state.user.money} />
                     </div>
