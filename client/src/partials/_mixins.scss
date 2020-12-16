@@ -33,3 +33,11 @@
     width: 100%;
     flex-wrap: wrap;
 }
+
+@mixin onHoverPlayBtn{
+    transition: .3s;
+    &:hover{
+        cursor: pointer;
+        background-color: rgb(221, 186, 120);
+    }
+}
