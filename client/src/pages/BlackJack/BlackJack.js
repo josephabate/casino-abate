@@ -201,7 +201,7 @@ class BlackJack extends Component {
             message = `BLACK JACK \n YOU WIN + $${bet}`
         }
         else if (this.state.player.bust) {
-            message = "YOU LOSE 1"
+            message = "BUST!"
             bet = 0;
         }
         else if (this.state.dealer.bust) {
@@ -213,11 +213,11 @@ class BlackJack extends Component {
             message = `YOU WIN + $${bet}`
         }
         else if (this.state.player.power === this.state.dealer.power) {
-            message = "YOU LOSE 2"
+            message = "TIE"
             bet = 0;
         }
         else {
-            message = "YOU LOSE 3"
+            message = "YOU LOSE"
             bet = 0;
         }
 

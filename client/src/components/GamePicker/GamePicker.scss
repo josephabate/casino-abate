@@ -28,5 +28,10 @@
         font-weight: 700;
         padding: .5rem 1rem;
         border-radius: 20px;
+        transition: .3s;
+        &:hover{
+            cursor: pointer;
+            color: black;
+        }
     }
 }

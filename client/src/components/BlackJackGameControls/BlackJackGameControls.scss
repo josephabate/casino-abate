@@ -13,6 +13,12 @@
         border: 0.5rem solid black;
         border-radius: 30px;
         font-size: 1rem;
+        font-weight: 600;
         color: black;
+        transition: .3s;
+        &:hover{
+            cursor: pointer;
+            background-color: rgb(221, 186, 120);
+        }
     }
 }
