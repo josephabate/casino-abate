@@ -24,6 +24,7 @@ class Roulette extends Component {
         if (!!!sessionStorage.getItem("user")) {
             this.props.history.push('/registration');
         }
+        this.trackMoney = 0;
     }
 
     componentDidMount() {
@@ -45,13 +46,13 @@ class Roulette extends Component {
             }
         })
 
-        let newWinnigns = parseInt(this.state.winnings) + parseInt(money);
+        this.trackMoney += money;
         let userData = this.state.user;
         userData.money += money;
         this.setState({
             user: { username: this.state.user.username, money: userData.money },
             bets: bets,
-            winnings: newWinnigns
+            winnings: this.trackMoney
         })
 
         //rewrite to session storage - imported method
@@ -98,6 +99,7 @@ class Roulette extends Component {
             canBet: true,
             winnings: 0
         })
+        this.trackMoney = 0;
     }
 
     getNumber = () => {
