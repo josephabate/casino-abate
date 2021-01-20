@@ -9,4 +9,4 @@ Tech Stack used:
   - Stripe API  for payment. (Use credit card number 4242 4242 4242 4242)
   - Nodemailer used for sending reset password email.
 
-The site is currentlt build for wide desktop view, not responsive. 
+The site is currently build for wide desktop view, not responsive. 
